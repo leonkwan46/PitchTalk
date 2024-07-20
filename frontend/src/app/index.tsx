@@ -1,7 +1,10 @@
-import { Text, View } from 'react-native'
-import ContainerLoginSignup from '../components/shared/loginSignup/ContainerLoginSignup';
+import { router } from 'expo-router';
+import { Pressable, Text, View } from 'react-native'
 
 const Index = () => {
+  const handlePress = () => {
+    router.replace('/loginSignupScreen')
+  }
   return (
     <View
       style={{
@@ -10,7 +13,9 @@ const Index = () => {
         alignItems: 'center',
       }}
     >
-      <Text>Test</Text>
+      <Pressable onPress={handlePress}>
+        <Text>Login</Text>
+      </Pressable>
     </View>
   );
 }
