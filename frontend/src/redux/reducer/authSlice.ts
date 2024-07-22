@@ -19,20 +19,24 @@ interface LoginPayload {
     password: string
 }
 
-interface UpdateUserPayload {
+export interface UpdateUserPayload {
     name: string
     DoB: string
     gender: string
+    userId: string
     isGeneralFormComplete: boolean
 }
 
-interface AuthInvitationPayload {
+export interface AuthInvitationPayload {
     token: string
     invitationCode: string
 }
 
-interface UpdateTeacherDocumentsPayload {
-    document: Blob
+export interface UpdateTeacherDocumentsPayload {
+    userId: string
+    selectedDBS: string | null
+    selectedID: string | null
+    selectedProfessionalCert: string | null
 }
 
 const initialState: AuthState = {

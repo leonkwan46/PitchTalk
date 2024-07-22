@@ -3,9 +3,10 @@ import { View, Text, StyleSheet } from 'react-native'
 import { closeTeacherOverlay } from '../../redux/reducer/registerInfoSlice'
 import { useDispatch } from 'react-redux'
 import { Button, Typography } from '../atom'
+import { AppDispatch } from '@/src/redux/store'
 
 const OverlayInfo: FC = () => {
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     return (
             <View style={styles.infoContainer}>
                 <View style={styles.titleContainer}>

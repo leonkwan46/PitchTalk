@@ -3,9 +3,10 @@ import { View, StyleSheet } from 'react-native'
 import { Button, Typography } from '../atom'
 import { changeToRegister } from '@/src/redux/reducer/registerInfoSlice'
 import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/src/redux/store'
 
 const BottomSignInNavigation: FC= () => {
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
 
     const handleOnPress = () => {
         dispatch(changeToRegister())

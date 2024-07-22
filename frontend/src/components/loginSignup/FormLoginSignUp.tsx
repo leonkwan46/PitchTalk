@@ -11,6 +11,8 @@ import { clearAuthStates, loginUser, signUpUser } from '../../redux/reducer/auth
 import { setUser } from '../../redux/reducer/sessionSlice'
 import { Button, TextInput, Typography } from '../atom'
 import { UserState } from '@/src/types/types'
+import { getAuthStatus } from '@/src/redux/selectors'
+import { openStatusOverlay } from '@/src/redux/reducer/registerInfoSlice'
 
 // For testing
 const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123456', confirmPassword: '123456' }
@@ -38,27 +40,28 @@ const FormLoginSignUp: FC = () => {
         const payload = {...values, role: role}
         // Login Page
         if (isLogin) {
-            console.log('isLogin')
             dispatch(loginUser(payload)).then((res) => {
-                const { token, user } = res.payload as ResponsePayload
-                const { role, isInvitationVerified, isDocVerified, isGeneralFormComplete } = user
-
-                if ((role === 'parent' && (!isInvitationVerified || !isGeneralFormComplete))
-                    || (role === 'teacher' && (!isDocVerified || !isGeneralFormComplete))) {
-                    router.replace('/chatScreen')
-                } else {
-                    dispatch(setUser({ user, token }))
-                    dispatch(clearAuthStates())
-                    router.replace('/chatScreen')
+                if (loginUser.fulfilled.match(res)) {
+                    const { token, user } = res.payload as ResponsePayload
+                    const { role, isInvitationVerified, isDocVerified, isGeneralFormComplete } = user
+    
+                    if ((role === 'parent' && (!isInvitationVerified || !isGeneralFormComplete))
+                        || (role === 'teacher' && (!isDocVerified || !isGeneralFormComplete))) {
+                        console.log('Please complete your profile')
+                        router.replace('extraDetailsScreen')
+                    } else {
+                        dispatch(setUser({ user, token }))
+                        dispatch(clearAuthStates())
+                        router.replace('(tabs)')
+                    }
                 }
             }).catch((err) => {
                 throw new Error(err)
             })
         // Register Page
         } else {
-            console.log('isNOTTTTLogin')
-            dispatch(signUpUser(payload)).then((res) => {
-                router.replace('/chatScreen')
+            dispatch(signUpUser(payload)).then(() => {
+                router.replace('extraDetailsScreen')
             }).catch((err) => {
                 throw new Error(err)
             })
@@ -112,7 +115,7 @@ const FormLoginSignUp: FC = () => {
                         }
                         <Box style={styles.buttonContainer}>
                             <Button onPress={handleSubmit} color='primary' size='xl' >
-                                <Typography size='lg'>{isLogin ? 'Login' : 'Register'}</Typography>
+                                <Typography size='lg' color='white'>{isLogin ? 'Login' : 'Register'}</Typography>
                             </Button>
                         </Box>
                     </VStack>

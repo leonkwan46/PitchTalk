@@ -1,11 +1,10 @@
 import React, { FC } from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
-import { BottomSignInNavigation, ContainerLoginSignup, FormLoginSignUp, SignUpAs } from '../components/loginSignup'
+import { BottomSignInNavigation, ContainerLoginSignup, FormLoginSignUp, GoBackIcon, SignUpAs } from '../components/loginSignup'
 import TopHeading from '../components/shared/TopHeading'
 import { useTypedSelector } from '../hooks/useTypedSelector'
-import { GoBackIcon } from '../components/shared'
 
-const LoginSignUp: FC = () => {
+const loginSignupScreen: FC = () => {
     const isLogin = useTypedSelector(state => state.registerInfo.isLogin)
 
     return (
@@ -36,4 +35,4 @@ const styles = StyleSheet.create({
     }
   })
 
-export default LoginSignUp
+export default loginSignupScreen

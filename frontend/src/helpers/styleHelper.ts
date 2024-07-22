@@ -1,9 +1,3 @@
-interface StyleProps {
-    size?: string
-    color?: string
-    fill?: boolean
-}
-
 const getColor = (color: string) => {
     switch (color) {
         case 'primary':
@@ -68,7 +62,7 @@ const getTextInputStyle = ({ size, hasError=false, outline=false}: getTextInputS
         backgroundColor: '#fff',
         borderRadius: 10,
         fontFamily: 'Lemon-Regular',
-        width: '100%',
+        width: '100%' as '100%',
         ...sizes.default
     }
 
@@ -117,7 +111,7 @@ const getButtonStyle = ({ size, color, fill=true }: getButtonStyleProps) => {
         borderWidth: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '50%'
+        width: '50%' as '50%'
     }
 
     if (!fill) {

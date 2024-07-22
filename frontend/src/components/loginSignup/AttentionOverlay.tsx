@@ -1,17 +1,18 @@
 // AttentionOverlay.tsx
 
 import React, { FC } from 'react'
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native'
+import { ImageBackground, StyleSheet, View } from 'react-native'
 import { Overlay } from 'react-native-elements'
 import { useDispatch } from 'react-redux'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { closeTeacherOverlay } from '../../redux/reducer/registerInfoSlice'
-import { OverlayInfo } from './'
+import { AppDispatch } from '@/src/redux/store'
+import OverlayInfo from './OverlayInfo'
 
 const image = require('../../assets/images/overlay.jpg')
 
 const AttentionOverlay: FC = () => {
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     const visible = useTypedSelector(state => state.registerInfo.isTeacherOverlayOpen)
 
     return (

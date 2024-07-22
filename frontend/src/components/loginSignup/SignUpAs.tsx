@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { openTeacherOverlay, collectUserRole } from '../../redux/reducer/registerInfoSlice'
 import { Button, Typography } from '../atom/'
 import AttentionOverlay from './AttentionOverlay'
+import { AppDispatch } from '@/src/redux/store'
 
 const roles = [
     { id: 1, name: 'Student / Parents', selected: true },
@@ -11,8 +12,7 @@ const roles = [
 ]
 
 const SignUpAs: FC = () => {
-
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     const [selected, setSelected] = useState(roles)
 
     const handleOnPress: (id: number) => void = (id) => {

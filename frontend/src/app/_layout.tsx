@@ -8,9 +8,11 @@ const RootLayout = () => {
         <Stack>
           <Stack.Screen name='index' options={{ headerShown: false }} />
           <Stack.Screen name='loginSignupScreen' options={{ headerShown: false }} />
-          <Stack.Screen name='chatScreen' options={{ headerShown: false }} />
+          <Stack.Screen name='extraDetailsScreen' options={{ headerShown: false }} />
+          <Stack.Screen name='chat' options={{ headerShown: false }} />
+          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
         </Stack>
-      </Provider>
+    </Provider>
   );
 }
 

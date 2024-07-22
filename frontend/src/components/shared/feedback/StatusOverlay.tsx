@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { closeStatusOverlay } from '../../../redux/reducer/registerInfoSlice'
 import { clearLoggedInRequestStatus } from '../../../redux/reducer/sessionSlice'
 import { clearAuthRequestStatus } from '../../../redux/reducer/authSlice'
+import { AppDispatch } from '@/src/redux/store'
 
 const failed = require('../../../assets/images/error.png')
 
@@ -15,7 +16,7 @@ interface StatusOverlayProps {
 
 const StatusOverlay: FC<StatusOverlayProps> = ({ message, visible }) => {
     const [isVisible, setIsVisible] = useState(visible)
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
 
     const handleOnBackdropPress = () => {
         setIsVisible(false)

@@ -27,7 +27,7 @@ const getUserToken = () => {
 }
 
 const getUserID = () => {
-  return useTypedSelector(state => state.session.user.id)
+  return useTypedSelector(state => state.session.user.userId)
 }
 
 const getUserStatus = () => {

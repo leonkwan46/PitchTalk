@@ -1,5 +1,6 @@
 import { useTypedSelector } from '@/src/hooks/useTypedSelector'
 import { changeToLogin } from '@/src/redux/reducer/registerInfoSlice'
+import { AppDispatch } from '@/src/redux/store'
 import React, { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -11,7 +12,7 @@ interface GoBackIconProps {
 }
 
 const GoBackIcon: FC<GoBackIconProps> = ({buttonStyle, iconColor}) => {
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     const handleOnPress = () => {
         dispatch(changeToLogin())
     }

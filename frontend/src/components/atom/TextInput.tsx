@@ -6,7 +6,8 @@ import useFont from '@/src/hooks/useFont'
 interface TextInputProps {
     value: string
     placeholder?: string
-    size?: string
+    keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad'
+    size: string
     hasError?: boolean
     outline?: boolean
     secureTextEntry?: boolean
@@ -20,6 +21,7 @@ interface TextInputProps {
 const CustomTextInput: FC<TextInputProps> = ({
     value,
     size,
+    keyboardType,
     placeholder,
     hasError,
     outline,
@@ -38,6 +40,7 @@ const CustomTextInput: FC<TextInputProps> = ({
                 <TextInput
                     value={value}
                     style={textInputStyle}
+                    keyboardType={keyboardType}
                     placeholder={placeholder}
                     secureTextEntry={secureTextEntry}
                     placeholderTextColor={placeholderTextColor}
@@ -49,6 +52,7 @@ const CustomTextInput: FC<TextInputProps> = ({
             ) : (
                 <TextInput
                     value={value}
+                    keyboardType={keyboardType}
                     placeholder={placeholder}
                     secureTextEntry={secureTextEntry}
                     placeholderTextColor={placeholderTextColor}

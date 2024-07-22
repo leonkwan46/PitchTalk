@@ -1,13 +1,13 @@
-import React, { type FC } from 'react'
-import { Text, View } from 'react-native'
 import { getColor, getFontSize } from '@/src/helpers/styleHelper'
 import useFont from '@/src/hooks/useFont'
+import React, { type FC } from 'react'
+import { Text, View } from 'react-native'
 
 
 interface TypographyProps {
     children: string | React.ReactNode
-    color?: string
-    size?: string
+    color: string
+    size: string
     selected?: boolean
 }
 
