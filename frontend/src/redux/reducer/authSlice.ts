@@ -1,10 +1,10 @@
 import { getErrorMessage } from '@/src/helpers/errorHandlingHelper'
-import { AuthState, StatusState, UserState } from '@/src/types/types'
+import { AuthState, AuthUserState } from '@/src/types/types'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 interface UserStatePayload {
-    user: UserState
+    user: AuthUserState
     token: string
 }
 
@@ -46,6 +46,13 @@ const initialState: AuthState = {
         role: '',
         token: '',
 
+        contacts: {
+            teachers: [],
+            students: [],
+            children: [],
+            parents: [],
+            parent: '',
+        },
         // Basic
         name: '',
         DoB: '',
@@ -61,6 +68,7 @@ const initialState: AuthState = {
         isDocUploaded: false,
         isDocVerified: false,
     },
+
     status: {
         isLoading: false,
         error: null,
@@ -74,7 +82,7 @@ export const signUpUser = createAsyncThunk<
         'auth/signUpUser',
         async (userData, { rejectWithValue }) => {
             try {
-                const response = await axios.post('http://localhost:6000/signup', userData)
+                const response = await axios.post('http://localhost:3000/signup', userData)
                 return response.data
             } catch (error) {
                 return rejectWithValue(getErrorMessage(error))
@@ -90,7 +98,7 @@ export const loginUser = createAsyncThunk<
         'auth/loginUser',
         async (userData, { rejectWithValue }) => {
             try {
-                const response = await axios.post('http://localhost:6000/login', userData)
+                const response = await axios.post('http://localhost:3000/login', userData)
                 return response.data
             } catch (error) {
                 return rejectWithValue(getErrorMessage(error))
@@ -102,7 +110,7 @@ export const updateUser = createAsyncThunk(
     'auth/updateUser',
     async (userData: UpdateUserPayload, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:6000/signup/extra_details', userData)
+            const response = await axios.post('http://localhost:3000/signup/extra_details', userData)
             return response.data
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
@@ -116,7 +124,7 @@ export const authInvitationCode = createAsyncThunk(
         const { token, invitationCode } = codeData
         try {
             const response = await axios.post(
-                'http://localhost:6000/signup/extra_details/auth_invitation',
+                'http://localhost:3000/signup/extra_details/auth_invitation',
                 { invitationCode },
                 {
                     headers: {
@@ -135,7 +143,7 @@ export const updateTeacherDocuments = createAsyncThunk(
     'auth/updateTeacherDocuments',
     async (teacherData: UpdateTeacherDocumentsPayload, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:6000/signup/extra_details/upload', teacherData)
+            const response = await axios.post('http://localhost:3000/signup/extra_details/upload', teacherData)
             return response.data
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
@@ -151,6 +159,13 @@ const authSlice = createSlice({
             state.user = {
                 userId: '',
                 email: '',
+                contacts: {
+                    teachers: [],
+                    students: [],
+                    children: [],
+                    parents: [],
+                    parent: '',
+                },
                 role: '',
                 token: '',
                 name: '',
@@ -207,6 +222,13 @@ const authSlice = createSlice({
                 state.user = {
                     userId: '',
                     email: '',
+                    contacts: {
+                        teachers: [],
+                        students: [],
+                        children: [],
+                        parents: [],
+                        parent: '',
+                    },
                     role: '',
                     token: '',
                     name: '',
@@ -241,13 +263,25 @@ const authSlice = createSlice({
                 state.user.isGeneralFormComplete = action.payload.user.isGeneralFormComplete
                 
                 if (action.payload.user.role === 'teacher') {
+                    // Ensure contacts is defined
+                    if (!state.user.contacts) {
+                        state.user.contacts = { students: [], parents: [], teachers: [], children: [], parent: '' }
+                    }
                     // Teacher Info
                     state.user.isDocUploaded = action.payload.user.isDocUploaded
                     state.user.isDocVerified = action.payload.user.isDocVerified
+                    state.user.contacts.students = action.payload.user.contacts?.students ?? []
+                    state.user.contacts.parents = action.payload.user.contacts?.parents ?? []
                 } else if (action.payload.user.role === 'parent') {
+                    // Ensure contacts is defined
+                    if (!state.user.contacts) {
+                        state.user.contacts = { students: [], parents: [], teachers: [], children: [], parent: '' }
+                    }
                     // Parent Info
                     state.user.isInvited = action.payload.user.isInvited
                     state.user.isInvitationVerified = action.payload.user.isInvitationVerified
+                    state.user.contacts.teachers = action.payload.user.contacts?.teachers ?? []
+                    state.user.contacts.children = action.payload.user.contacts?.children ?? []
                 }
 
                 state.status.error = null
@@ -257,6 +291,13 @@ const authSlice = createSlice({
                 state.user = {
                     userId: '',
                     email: '',
+                    contacts: {
+                        teachers: [],
+                        students: [],
+                        children: [],
+                        parents: [],
+                        parent: '',
+                    },
                     role: '',
                     token: '',
                     name: '',

@@ -6,12 +6,13 @@ import { Text, View } from 'react-native'
 
 interface TypographyProps {
     children: string | React.ReactNode
-    color: string
-    size: string
+    color?: string
+    size?: string
+    extrasStyle?: object
     selected?: boolean
 }
 
-const Typography: FC<TypographyProps> = ({ children, color, size, selected }) => {
+const Typography: FC<TypographyProps> = ({ children, extrasStyle, color='', size='', selected }) => {
     const { fontLoaded } = useFont('Lemon-Regular')
 
     let selectedSize = getFontSize(size)
@@ -27,9 +28,9 @@ const Typography: FC<TypographyProps> = ({ children, color, size, selected }) =>
     return (
         <View>
             {fontLoaded ? (
-                <Text style={textStyle}>{children}</Text>
+                <Text style={extrasStyle ? extrasStyle : textStyle}>{children}</Text>
             ) : (
-                <Text>{children}</Text>
+                <Text style={extrasStyle ? extrasStyle : null}>{children}</Text>
             )}
         </View>
     )

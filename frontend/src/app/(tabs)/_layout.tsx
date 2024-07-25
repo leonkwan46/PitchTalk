@@ -35,7 +35,7 @@ const TabLayout = () => {
 
     useEffect(() => {
         router.replace('/messages')
-      }, [router])
+      }, [])
 
     return (
         <Tabs

@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native'
+import ContainerContact from '@/src/components/contact/ContainerContact'
+import LoggedInContainer from '@/src/components/shared/loggedIn/LoggedInContainer'
+import { StyleSheet } from 'react-native'
 
 const ContactsTab = () => {
-    
   return (
-    <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text>
-    </View>
+    <LoggedInContainer>
+      <ContainerContact />
+    </LoggedInContainer>
   )
 }
 

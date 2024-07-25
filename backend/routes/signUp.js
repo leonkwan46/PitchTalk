@@ -1,6 +1,8 @@
 import express from "express"
 import { User, Document, Parent } from "../db/modals/index.js"
 import authHelper from "../helpers/authHelper.js"
+import authHandler from "../handlers/authHandler.js"
+import OTPHelper from "../helpers/OTPHelper.js"
 
 const router = express.Router()
 
@@ -72,6 +74,23 @@ router.post('/extra_details/upload', async (req, res, next) => {
         await user.save()
 
         return res.status(200).json({ userId })
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.post('/extra_details/auth_invitation', authHandler, async (req, res, next) => {  
+    try {
+        const user = req.user
+        const { invitationCode } = req.body
+
+        const isVerified = await OTPHelper.verifyOTP(invitationCode, user.hashPassword)
+        if (!isVerified) throw new Error("Invalid OTP Code")
+
+        const isUpdated = await Parent.findOneAndUpdate({ email: user.email }, { isInvitationVerified: false })
+        if (!isUpdated) throw new Error("Failed to update user")
+
+        return res.status(200).json({ message: "Success" })
     } catch (err) {
         next(err)
     }

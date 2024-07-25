@@ -5,7 +5,7 @@ import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { ParentFormSchema } from '../../helpers/validationHelpers'
-import { authInvitationCode, AuthInvitationPayload } from '../../redux/reducer/authSlice'
+import { authInvitationCode, AuthInvitationPayload, clearAuthStates } from '../../redux/reducer/authSlice'
 import { getAuthUser } from '../../redux/selectors'
 import { Button, TextInput, Typography } from '../atom'
 import { router } from 'expo-router'
@@ -22,8 +22,6 @@ const FormParent: FC = () => {
     const handleOnSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
         values = { ...values, token } as AuthInvitationPayload
         await dispatch(authInvitationCode(values as AuthInvitationPayload))
-
-        if (authInvitationCode.fulfilled.match(values)) router.replace('(tabs)/messages')
         resetForm()
     }
     return (

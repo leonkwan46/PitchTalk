@@ -9,15 +9,16 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/src/redux/store'
 import { Button, Typography } from '../atom'
 import { router } from 'expo-router'
+import { DocumentPickerAsset } from 'expo-document-picker'
 
 const initialValues = {}
 
 const FormTeacher: FC = () => {
     const dispatch: AppDispatch = useDispatch()
     const { userId } = getAuthUser()
-    const [selectedDBS, setSelectedDBS] = useState(null)
-    const [selectedID, setSelectedID] = useState(null)
-    const [selectedProfessionalCert, setSelectedProfessionalCert] = useState(null)
+    const [selectedDBS, setSelectedDBS] = useState<DocumentPickerAsset>()
+    const [selectedID, setSelectedID] = useState<DocumentPickerAsset>()
+    const [selectedProfessionalCert, setSelectedProfessionalCert] = useState<DocumentPickerAsset>()
 
     const handleOnSubmit = async () => {
         // Letting this pass for now

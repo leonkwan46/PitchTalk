@@ -1,9 +1,13 @@
 import { FC } from 'react'
 import { View, StyleSheet, ActivityIndicator } from 'react-native'
 
-const Loading: FC = () => {
+interface LoadingProps {
+  isLoggedIn?: boolean
+}
+
+const Loading: FC<LoadingProps> = ({ isLoggedIn }) => {
     return (
-        <View style={styles.container}>
+        <View style={isLoggedIn ? styles.LoggedInContainer : styles.container}>
             <ActivityIndicator size='large' color='#fff' />
         </View>
     )
@@ -19,6 +23,15 @@ const Loading: FC = () => {
         width: '100%',
         height: '100%',
         zIndex: 1,
+    },
+    LoggedInContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      width: '100%',
+      height: '100%',
+      zIndex: 1,
     }
   })
 

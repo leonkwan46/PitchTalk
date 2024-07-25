@@ -1,5 +1,3 @@
-// selectors.ts
-
 import { useTypedSelector } from '../hooks/useTypedSelector'
 
 const getAuthUser = () => {
@@ -14,7 +12,7 @@ const getSessionStatus = () => {
   return useTypedSelector(state => state.session.status)
 }
 
-
+// Logged In
 const getLoggedInUser = () => {
   return useTypedSelector(state => state.session.user)
 }
@@ -34,11 +32,21 @@ const getUserStatus = () => {
   return useTypedSelector(state => state.session.status)
 }
 
+const getUserContacts = () => {
+  return useTypedSelector(state => state.session.contacts)
+}
+
+// Registering for new user
+const getRegisteringNewUserState = () => {
+  return useTypedSelector(state => state.session.registeringNewUser)
+}
+
 const getRequestStatus = () => {
   const authStatus = getAuthStatus()
   const sessionStatus = getSessionStatus()
   return { auth: authStatus, session: sessionStatus }
 }
+
 
 export {
   getAuthStatus,
@@ -49,6 +57,8 @@ export {
   getUserID,
   getUserRole,
   getUserStatus,
-  getUserToken
+  getUserToken,
+  getUserContacts,
+  getRegisteringNewUserState
 }
 

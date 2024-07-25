@@ -1,6 +1,8 @@
 import { useTypedSelector } from '@/src/hooks/useTypedSelector'
 import { changeToLogin } from '@/src/redux/reducer/registerInfoSlice'
+import { getLoggedInUser } from '@/src/redux/selectors'
 import { AppDispatch } from '@/src/redux/store'
+import { router } from 'expo-router'
 import React, { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -13,8 +15,10 @@ interface GoBackIconProps {
 
 const GoBackIcon: FC<GoBackIconProps> = ({buttonStyle, iconColor}) => {
     const dispatch: AppDispatch = useDispatch()
+    const { token } = getLoggedInUser()
     const handleOnPress = () => {
-        dispatch(changeToLogin())
+        if (!token) dispatch(changeToLogin())
+        router.back()
     }
     return (
         <TouchableOpacity onPress={handleOnPress} style={buttonStyle}>

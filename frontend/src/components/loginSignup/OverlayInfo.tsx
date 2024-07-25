@@ -28,10 +28,10 @@ const OverlayInfo: FC = () => {
                 <View style={styles.buttonContainer}>
                     <Button
                         onPress={() => dispatch(closeTeacherOverlay())}
-                        color='info'
+                        color='error'
                         fill={false}
                         >
-                        <Typography>Ready!</Typography>
+                        <Typography color='secondary'>Ready!</Typography>
                     </Button>
                 </View>
             </View>
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         textDecorationLine: 'underline',
+        color: 'white',
     },
     subsubtitleContainer: {
         display: 'flex',
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
     subsubtitle: {
         fontSize: 16,
         fontStyle: 'italic',
+        color: 'white',
     },
     textContainer: {
         height: '20%',
@@ -82,6 +84,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         marginBottom: 5,
+        color: 'red',
     },
     buttonContainer: {
         display: 'flex',

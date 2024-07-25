@@ -4,7 +4,7 @@ import * as DocumentPicker from 'expo-document-picker'
 
 interface UploadDocumentProps {
   title: string
-  setSelectedDocument: (selectedDocument: any) => void
+  setSelectedDocument: (selectedDocument: DocumentPicker.DocumentPickerAsset) => void
   selectedDocument: any
 }
 

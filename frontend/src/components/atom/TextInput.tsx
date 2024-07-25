@@ -12,6 +12,7 @@ interface TextInputProps {
     outline?: boolean
     secureTextEntry?: boolean
     placeholderTextColor?: string
+    extrasStyle?: object
     onChangeText: (text: string) => void
     onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
     onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
@@ -27,6 +28,7 @@ const CustomTextInput: FC<TextInputProps> = ({
     outline,
     secureTextEntry,
     placeholderTextColor = '#aaa',
+    extrasStyle,
     onChangeText,
     onBlur,
     onFocus,
@@ -39,7 +41,7 @@ const CustomTextInput: FC<TextInputProps> = ({
             {fontLoaded ? (
                 <TextInput
                     value={value}
-                    style={textInputStyle}
+                    style={extrasStyle ? extrasStyle : textInputStyle}
                     keyboardType={keyboardType}
                     placeholder={placeholder}
                     secureTextEntry={secureTextEntry}
@@ -52,6 +54,7 @@ const CustomTextInput: FC<TextInputProps> = ({
             ) : (
                 <TextInput
                     value={value}
+                    style={extrasStyle ? extrasStyle : null}
                     keyboardType={keyboardType}
                     placeholder={placeholder}
                     secureTextEntry={secureTextEntry}

@@ -3,25 +3,25 @@ import { StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../redux/reducer/sessionSlice'
 import { clearAuthStates } from '../redux/reducer/authSlice'
-import { ContainerExtraDetails, FormGeneral, FormParent } from '../components/extraDetails'
-import { useTypedSelector } from '../hooks/useTypedSelector'
+import { ContainerExtraDetails, FormGeneral, FormParent, FormStudent } from '../components/extraDetails'
 import { router } from 'expo-router'
 import { TopHeading } from '../components/shared'
 import { AppDispatch } from '../redux/store'
 import FormTeacher from '../components/extraDetails/FormTeacher'
+import { getAuthUser, getLoggedInUser, getRegisteringNewUserState } from '../redux/selectors'
 
 const ExtraDetailsScreen = () => {
     const dispatch: AppDispatch = useDispatch()
 
-    const loggedInUser = useTypedSelector(state => state.session.user)
-    const { user } = useTypedSelector(state => state.auth)
+    const loggedInUser = getLoggedInUser()
+    const user = getAuthUser()
+    const isStudent = getRegisteringNewUserState().isStudent
     const { role, isGeneralFormComplete, isInvited, isInvitationVerified, isDocVerified } = user
 
     const [isTeacher, setIsTeacher] = useState(false)
     const [isParent, setIsParent] = useState(false)
 
-    // Wait when I start to build Contacts Page
-    // const isStudentCreation = props.route?.params?.isStudent && loggedInUser.role === 'parent'
+    const isStudentCreation = isStudent && loggedInUser.role === 'parent'
     const shouldSkipGeneralForm = isParent && isGeneralFormComplete && isInvited
     const isFullFormComplete = isGeneralFormComplete && (isTeacher && isDocVerified || isParent && isInvitationVerified)
 
@@ -41,13 +41,11 @@ const ExtraDetailsScreen = () => {
     return (
         <ContainerExtraDetails>
             <View style={ styles.container }>
-                <TopHeading title={'Extra Details'} subtitle={`for ${role}s`} />
-                {/* { (isStudentCreation) && <FormStudent /> } */}
-                {/* { (!isGeneralFormComplete && !isStudentCreation) && <FormGeneral /> } */}
-                { !isGeneralFormComplete && <FormGeneral /> }
+                <TopHeading title={isStudentCreation ? 'Create Account' : 'Extra Details'} subtitle={isStudentCreation ? 'for student' : `for ${role}s`} />
+                { (isStudentCreation) && <FormStudent /> }
+                { (!isGeneralFormComplete && !isStudentCreation) && <FormGeneral /> }
                 { isTeacher && <FormTeacher /> }
-                {/* { ((isParent || shouldSkipGeneralForm) && !isStudentCreation) && <FormParent /> } */}
-                { (isParent || shouldSkipGeneralForm) && <FormParent /> }
+                { ((isParent || shouldSkipGeneralForm) && !isStudentCreation) && <FormParent /> }
 
             </View>
         </ContainerExtraDetails>

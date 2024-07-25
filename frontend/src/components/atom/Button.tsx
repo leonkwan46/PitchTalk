@@ -1,5 +1,5 @@
 import React, { type FC } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { getButtonStyle } from '@/src/helpers/styleHelper'
 
 interface ButtonProps {
@@ -13,17 +13,15 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({
     children,
-    color,
-    size,
+    color='',
+    size='',
     fill,
     extraStyles,
     onPress
 }) => {
     const { containerStyle } = getButtonStyle({ size, color, fill })
-    const style = {
-        ...containerStyle,
-        ...extraStyles
-    }
+    const style: StyleProp<ViewStyle> = [containerStyle, extraStyles]
+
     return (
         <TouchableOpacity style={style} onPress={onPress}>
             {children}

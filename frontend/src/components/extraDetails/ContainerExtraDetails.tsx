@@ -10,8 +10,6 @@ interface ContainerExtraDetailsProps {
 const image = require('../../assets/images/piano-dark.jpg')
 
 const ContainerExtraDetails: FC<ContainerExtraDetailsProps> = ({ children }) => {
-    const { error } = getUserStatus()
-
     return (
         <ImageBackground
             source={image}

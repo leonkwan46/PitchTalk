@@ -10,7 +10,6 @@ const LoggedInContainer: FC<LoggedInContainerProps> = ({ children }) => {
     return (
         <SafeAreaView style={ styles.container }>
             <View style={ styles.innerContainer }>
-                <StatusContainer />
                 {children}
             </View>
         </SafeAreaView>

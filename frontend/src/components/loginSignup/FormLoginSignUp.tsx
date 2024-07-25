@@ -1,5 +1,6 @@
 import { useTypedSelector } from '@/src/hooks/useTypedSelector'
 import { AppDispatch } from '@/src/redux/store'
+import { AuthUserState } from '@/src/types/types'
 import { Box, VStack } from '@react-native-material/core'
 import { router } from 'expo-router'
 import { Formik, FormikHelpers } from 'formik'
@@ -8,13 +9,11 @@ import { StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { LoginSchema, SignupSchema } from '../../helpers/validationHelpers'
 import { clearAuthStates, loginUser, signUpUser } from '../../redux/reducer/authSlice'
-import { setUser } from '../../redux/reducer/sessionSlice'
 import { Button, TextInput, Typography } from '../atom'
-import { UserState } from '@/src/types/types'
-import { getAuthStatus } from '@/src/redux/selectors'
-import { openStatusOverlay } from '@/src/redux/reducer/registerInfoSlice'
+import { setUser } from '@/src/redux/reducer/sessionSlice'
 
 // For testing
+// import { setUser } from '@/src/redux/reducer/testingSlice'
 const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123456', confirmPassword: '123456' }
 // const initialValues = { email: 'teacher@gmail.com', password: 'qwe', confirmPassword: 'qwe' }
 // const initialValues = { email: 'student@gmail.com', password: '123456'}
@@ -28,8 +27,8 @@ interface FormValues {
 
 interface ResponsePayload {
     token: string
-    user: UserState
-  }
+    user: AuthUserState
+}
 
 const FormLoginSignUp: FC = () => {
     const isLogin = useTypedSelector(state => state.registerInfo.isLogin)
@@ -43,13 +42,14 @@ const FormLoginSignUp: FC = () => {
             dispatch(loginUser(payload)).then((res) => {
                 if (loginUser.fulfilled.match(res)) {
                     const { token, user } = res.payload as ResponsePayload
+
                     const { role, isInvitationVerified, isDocVerified, isGeneralFormComplete } = user
     
                     if ((role === 'parent' && (!isInvitationVerified || !isGeneralFormComplete))
                         || (role === 'teacher' && (!isDocVerified || !isGeneralFormComplete))) {
-                        console.log('Please complete your profile')
                         router.replace('extraDetailsScreen')
                     } else {
+                        
                         dispatch(setUser({ user, token }))
                         dispatch(clearAuthStates())
                         router.replace('(tabs)')
@@ -107,7 +107,7 @@ const FormLoginSignUp: FC = () => {
                                     onChangeText={handleChange('confirmPassword')}
                                     onBlur={handleBlur('confirmPassword')}
                                     value={values.confirmPassword}
-                                    hasError={errors.confirmPassword || touched.confirmPassword ? true : false}
+                                    hasError={errors.confirmPassword ? true : false}
                                     size='lg'
                                     placeholder='Confirm Password'
                                 />

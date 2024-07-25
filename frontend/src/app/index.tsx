@@ -3,8 +3,9 @@ import { Pressable, Text, View } from 'react-native'
 
 const Index = () => {
   const handlePress = () => {
-    // router.replace('loginSignupScreen')
-    router.replace('(tabs)')
+    router.replace('loginSignupScreen')
+    // router.replace('(tabs)')
+    // router.replace('chat')
   }
   return (
     <View

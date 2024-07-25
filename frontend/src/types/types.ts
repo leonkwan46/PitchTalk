@@ -4,12 +4,15 @@ export interface StatusState {
 }
 
 export interface AuthState {
-  user: UserState
+  user: AuthUserState
   status: StatusState
 }
 
 export interface SessionState {
-  user: User
+  user: SessionUserState
+  currentChatRoom: CurrentChatRoomState
+  contacts: ContactsState
+  registeringNewUser: RegisteringNewUserState
   status: StatusState
 }
 
@@ -18,17 +21,18 @@ export interface RootState {
   session: SessionState
 }
 
-export interface User {
+export interface SessionUserState {
   userId: string
   role: string
   token: string
   email: string
 }
 
-export interface UserState {
+export interface AuthUserState {
   userId: string
   email: string
   role: string
+  contacts?: ContactsState
   token: string
   name: string
   DoB: string
@@ -39,6 +43,34 @@ export interface UserState {
   isInvitationVerified: boolean
   isDocUploaded: boolean
   isDocVerified: boolean
+}
+
+export interface Message {
+  senderId: string
+  roomId: string
+  message: string
+  isRead: boolean
+  sentAt: number
+}
+
+export interface CurrentChatRoomState {
+  roomId: string
+  name: string
+  members: any[]
+  messages: Message[]
+  createdAt: string
+}
+
+export interface ContactsState {
+  teachers: any[]
+  students: any[]
+  children: any[]
+  parents: any[]
+  parent: string
+}
+
+export interface RegisteringNewUserState {
+  isStudent: boolean
 }
 
 export interface RegisterInfoState {
