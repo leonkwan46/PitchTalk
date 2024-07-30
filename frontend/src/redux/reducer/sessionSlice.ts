@@ -17,11 +17,6 @@ interface ContactData {
   token: string
 }
 
-interface RefetchUserPayload {
-  userId: string
-  token: string
-}
-
 const initialState: SessionState = {
     user: {
         userId: '',
@@ -103,38 +98,29 @@ export const createStudentAccount = createAsyncThunk(
     }
   )
 
-// export const refetchUser = createAsyncThunk(
-//   'auth/refetchUser',
-//   async (userData: RefetchUserPayload, { rejectWithValue }) => {
-//       try {
-//           const response = await axios.get('http://localhost:3000/refetch_user', {
-//               headers: {
-//                   'authorization': `Bearer ${userData.userId}`
-//               }
-//           })
-//           return response.data
-//       } catch (error) {
-//           return rejectWithValue(getErrorMessage(error))
-//       }
-//   }
-// )
-
 const sessionSlice = createSlice({
     name: 'session',
     initialState: {...initialState},
     reducers: {
         setUser: (state, action) => {
-          // Basic Info
-          state.user.userId = action.payload.user.userId,
-          state.user.email = action.payload.user.email,
-          state.user.role = action.payload.user.role,
-          state.user.token = action.payload.token
-          // Contacts
-          state.contacts.teachers = action.payload.user.contacts.teachers,
-          state.contacts.students = action.payload.user.contacts.students,
-          state.contacts.children = action.payload.user.contacts.children,
-          state.contacts.parents = action.payload.user.contacts.parents,
-          state.contacts.parent = action.payload.user.contacts.parent
+          // Ensure the payload has the necessary user data
+          if (action.payload.user) {
+            // Basic Info
+            state.user.userId = action.payload.user.userId || state.user.userId;
+            state.user.email = action.payload.user.email || state.user.email;
+            state.user.role = action.payload.user.role || state.user.role;
+            state.user.token = action.payload.user.token || action.payload.token || state.user.token;
+          }
+        
+        // Ensure the payload has the necessary contacts data
+          if (action.payload.user && action.payload.user.contacts) {
+            // Contacts
+            state.contacts.teachers = action.payload.user.contacts.teachers || [];
+            state.contacts.students = action.payload.user.contacts.students || [];
+            state.contacts.children = action.payload.user.contacts.children || [];
+            state.contacts.parents = action.payload.user.contacts.parents || [];
+            state.contacts.parent = action.payload.user.contacts.parent || '';
+          }
         },
         setCurrentChatRoom: (state, action: PayloadAction<CurrentChatRoomState>) => {
           state.currentChatRoom.roomId = action.payload.roomId

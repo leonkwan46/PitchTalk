@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Typography Component applies custom styles when provided 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "color": "green",
+        "fontSize": 25,
+      }
+    }
+  >
+    Styled Text
+  </Text>
+</View>
+`;
+
+exports[`Typography Component renders correctly when font is not loaded 1`] = `
+<View>
+  <Text
+    style={null}
+  >
+    Fallback Text
+  </Text>
+</View>
+`;
+
+exports[`Typography Component renders correctly with default props 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontFamily": "Lemon-Regular",
+        "fontSize": 15,
+      }
+    }
+  >
+    Default Text
+  </Text>
+</View>
+`;
+
+exports[`Typography Component renders correctly with size and color props 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "color": "red",
+        "fontFamily": "Lemon-Regular",
+        "fontSize": 25,
+      }
+    }
+  >
+    Error Color Text
+  </Text>
+</View>
+`;
+
+exports[`Typography Component uses default color if no color is provided 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontFamily": "Lemon-Regular",
+        "fontSize": 15,
+      }
+    }
+  >
+    Default Color Text
+  </Text>
+</View>
+`;
+
+exports[`Typography Component uses primary color when selected prop is true 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "color": "#D4AF37",
+        "fontFamily": "Lemon-Regular",
+        "fontSize": 15,
+      }
+    }
+  >
+    Primary Color Text
+  </Text>
+</View>
+`;

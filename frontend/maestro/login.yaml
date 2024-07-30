@@ -1,0 +1,4 @@
+appId: com.leonkwan46.frontend
+---
+- launchApp
+- assertVisible: 'Login'

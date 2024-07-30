@@ -32,8 +32,11 @@ const ExtraDetailsScreen = () => {
 
     useEffect(() => {
         if (isFullFormComplete) {
+            console.log('isFullFormComplete\n\n', user)
             dispatch(setUser({ user }))
             dispatch(clearAuthStates())
+
+            console.log('isFullFormComplet loggedInUser\n\n', loggedInUser)
             router.replace('(tabs)')
         }
     }, [isFullFormComplete])

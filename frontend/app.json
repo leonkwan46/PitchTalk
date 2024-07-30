@@ -11,12 +11,14 @@
       "backgroundColor": "#000000"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.leonkwan46.frontend"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#0000000"
-      }
+      },
+      "package": "com.leonkwan46.frontend"
     },
     "web": {
       "bundler": "metro",
@@ -27,6 +29,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "adbec2c5-67c5-4cea-8d45-f983c7c8ff0e"
+      }
+    },
+    "owner": "leonkwan46"
   }
 }

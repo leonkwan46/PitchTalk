@@ -1,19 +1,17 @@
 import { useTypedSelector } from '@/src/hooks/useTypedSelector'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { MessageData, receiveMessage, sendMessage } from '../../helpers/socketHelpers'
 import Message from './Message'
 import MessageInput from './MessageInput'
-import { getSessionStatus } from '@/src/redux/selectors'
 
-const ContainerChatMessage = () => {
+const ContainerChatMessage: FC = () => {
     const { userId } = useTypedSelector(state => state.session.user)
     const { roomId, name, members, messages: chatHistory, createdAt } = useTypedSelector(state => state.session.currentChatRoom)
 
     const [oldMessages, setOldMessages] = useState<MessageData[]>([])
     const [message, setMessage] = useState<string>('')
     const flatListRef = useRef<FlatList>(null)
-    const isLoading = getSessionStatus().isLoading
 
     const handleSendMessage = () => {
         sendMessage(roomId, message, userId)

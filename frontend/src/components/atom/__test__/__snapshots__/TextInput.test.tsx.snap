@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomTextInput Component renders correctly when font is not loaded 1`] = `
+<View>
+  <TextInput
+    onChangeText={[Function]}
+    placeholderTextColor="#aaa"
+    style={null}
+    value="No Font"
+  />
+</View>
+`;
+
+exports[`CustomTextInput Component renders correctly with required props 1`] = `
+<View>
+  <TextInput
+    onChangeText={[Function]}
+    placeholderTextColor="#aaa"
+    style={
+      {
+        "borderWidth": 1,
+      }
+    }
+    value="Test Value"
+  />
+</View>
+`;
+
+exports[`CustomTextInput Component renders with disabled state 1`] = `
+<View>
+  <TextInput
+    onChangeText={[Function]}
+    placeholderTextColor="#aaa"
+    style={null}
+    value="Disabled"
+  />
+</View>
+`;
+
+exports[`CustomTextInput Component renders with error state and custom styles 1`] = `
+<View>
+  <TextInput
+    onChangeText={[Function]}
+    placeholderTextColor="#aaa"
+    style={
+      {
+        "borderColor": "red",
+        "borderWidth": 2,
+      }
+    }
+    value="Error State"
+  />
+</View>
+`;
+
+exports[`CustomTextInput Component renders with placeholder and secureTextEntry 1`] = `
+<View>
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="Enter text"
+    placeholderTextColor="#aaa"
+    secureTextEntry={true}
+    style={
+      {
+        "borderWidth": 1,
+      }
+    }
+    value=""
+  />
+</View>
+`;

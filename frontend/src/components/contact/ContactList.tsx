@@ -31,6 +31,7 @@ const ContactList: FC = () => {
     useFocusEffect(
         useCallback(() => {
             fetchContacts()
+            console.log(allContacts)
         }, [])
     )
 
