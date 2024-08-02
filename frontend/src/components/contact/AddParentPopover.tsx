@@ -5,10 +5,11 @@ import { Formik, FormikHelpers } from 'formik'
 import { SendEmailSchema } from '../../helpers/validationHelpers'
 import { Box, VStack } from '@react-native-material/core'
 import { sendInvitationCode } from '../../redux/reducer/sessionSlice'
-import { getLoggedInUser } from '../../redux/selectors'
+import { getLoggedInUser, getUserStatus } from '../../redux/selectors'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/src/redux/store'
 import { Button, TextInput, Typography } from '../atom'
+import StatusContainer from '../shared/feedback/StatusContainer'
 
 const testValues = {
     email: 'lk370.chatapp@gmail.com',
@@ -27,6 +28,7 @@ const AddParentPopover: FC<AddParentPopoverProps> = (props) => {
     const dispatch: AppDispatch = useDispatch()
     const { userId, token } = getLoggedInUser()
     const { isPopoverVisible, handleClosePopover } = props
+    const isLoading = getUserStatus().isLoading
     const handleSendInvitationCode = (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
         dispatch(sendInvitationCode({ email: values.email, userId, token }))
         resetForm()
@@ -39,6 +41,7 @@ const AddParentPopover: FC<AddParentPopoverProps> = (props) => {
             visible={isPopoverVisible}
             onRequestClose={handleClosePopover}
         >
+            { isLoading && <StatusContainer /> }
             <View style={styles.modalContainer}>
                 <ImageBackground
                     source={require('../../assets/images/piano-dark.jpg')}
