@@ -3,6 +3,7 @@
 exports[`Typography Component applies custom styles when provided 1`] = `
 <View>
   <Text
+    id=""
     style={
       {
         "color": "green",
@@ -18,6 +19,7 @@ exports[`Typography Component applies custom styles when provided 1`] = `
 exports[`Typography Component renders correctly when font is not loaded 1`] = `
 <View>
   <Text
+    id=""
     style={null}
   >
     Fallback Text
@@ -28,6 +30,7 @@ exports[`Typography Component renders correctly when font is not loaded 1`] = `
 exports[`Typography Component renders correctly with default props 1`] = `
 <View>
   <Text
+    id=""
     style={
       {
         "color": "black",
@@ -44,6 +47,7 @@ exports[`Typography Component renders correctly with default props 1`] = `
 exports[`Typography Component renders correctly with size and color props 1`] = `
 <View>
   <Text
+    id=""
     style={
       {
         "color": "red",
@@ -60,6 +64,7 @@ exports[`Typography Component renders correctly with size and color props 1`] = 
 exports[`Typography Component uses default color if no color is provided 1`] = `
 <View>
   <Text
+    id=""
     style={
       {
         "color": "black",
@@ -76,6 +81,7 @@ exports[`Typography Component uses default color if no color is provided 1`] = `
 exports[`Typography Component uses primary color when selected prop is true 1`] = `
 <View>
   <Text
+    id=""
     style={
       {
         "color": "#D4AF37",

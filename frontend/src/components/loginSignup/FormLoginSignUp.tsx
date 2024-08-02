@@ -23,7 +23,7 @@ const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123456', co
 // const initialValues = { email: 'student@gmail.com', password: '123456', confirmPassword: '123456' }
 
 // Default
-// const initialValues = {}
+// const initialValues = { email: '', password: '', confirmPassword: '' }
 
 interface FormValues {
     email: string
