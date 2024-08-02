@@ -4,7 +4,7 @@ import { BottomSignInNavigation, ContainerLoginSignup, FormLoginSignUp, GoBackIc
 import TopHeading from '../components/shared/TopHeading'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 
-const loginSignupScreen: FC = () => {
+const login: FC = () => {
     const isLogin = useTypedSelector(state => state.registerInfo.isLogin)
 
     return (
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     }
   })
 
-export default loginSignupScreen
+export default login

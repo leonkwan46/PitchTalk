@@ -1,7 +1,8 @@
 import { getErrorMessage } from '@/src/helpers/errorHandlingHelper'
-import { CurrentChatRoomState, SessionState } from '@/src/types/types'
+import { ChatRoomState, CurrentChatRoomState, SessionState } from '@/src/types/types'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { isLoading } from 'expo-font'
 
 interface CodeData {
     email: string
@@ -17,6 +18,15 @@ interface ContactData {
   token: string
 }
 
+interface ChatRoomData {
+  token: string
+}
+
+interface fetchChildrenData {
+  token: string
+  selectedParentId: string
+}
+
 const initialState: SessionState = {
     user: {
         userId: '',
@@ -29,7 +39,10 @@ const initialState: SessionState = {
       students: [],
       children: [],
       parents: [],
-      parent: '',
+      parent: {
+        _id: '',
+        name: '',
+      },
     },
     currentChatRoom: {
         roomId: '',
@@ -38,10 +51,17 @@ const initialState: SessionState = {
         messages: [],
         createdAt: '',
     },
+    currentCreateRoom: {
+        children: [],
+    },
     registeringNewUser: {
         isStudent: false,
     },
     status: {
+        isLoading: false,
+        error: null,
+    },
+    popoverStatus: {
         isLoading: false,
         error: null,
     }
@@ -67,36 +87,87 @@ export const sendInvitationCode = createAsyncThunk(
 export const createStudentAccount = createAsyncThunk(
   'session/createStudentAccount',
   async (studentData: StudentSignUpData, {rejectWithValue}) => {
-      const { parentToken } = studentData
-      try {
-          const response = await axios.post('http://localhost:3000/contacts/create_student_account', studentData, {
-              headers: {
-                  'authorization': `Bearer ${parentToken}`
-              }
-          })
-          return response.data
-        } catch (error: any) {
-          return rejectWithValue(getErrorMessage(error))
-        }
+    const { parentToken } = studentData
+    try {
+      const response = await axios.post('http://localhost:3000/contacts/create_student_account', studentData, {
+          headers: {
+              'authorization': `Bearer ${parentToken}`
+          }
+      })
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error))
+    }
   }
 )
 
-  export const getContacts = createAsyncThunk(
-    'session/getContacts',
-    async (contactData: ContactData, { rejectWithValue }) => {
-      const { token } = contactData
-      try {
-          const response = await axios.get('http://localhost:3000/contacts/get_contacts', {
-              headers: {
-                  'authorization': `Bearer ${token}`
-              }
-          })
-          return response.data
-        } catch (error: any) {
-          return rejectWithValue(getErrorMessage(error))
+export const getChatRooms = createAsyncThunk(
+  'session/getChatRoom',
+  async (chatRoomData: ChatRoomData, {rejectWithValue}) => {
+    const { token } = chatRoomData
+    try {
+      const response = await axios.get('http://localhost:3000/chat_message/get_rooms', {
+        headers: {
+            'authorization': `Bearer ${token}`
         }
+      })
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error))
     }
-  )
+  }
+)
+
+export const createChatRoom = createAsyncThunk(
+  'session/createChatRoom',
+  async (chatRoomData: ChatRoomData, { rejectWithValue }) => {
+      const { token } = chatRoomData
+      try {
+        const response = await axios.post('http://localhost:3000/chat_message/create_chat_room', chatRoomData, {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        })
+        return response.data
+      } catch (error: any) {
+        return rejectWithValue(getErrorMessage(error))
+      }
+  }
+)
+
+export const getContacts = createAsyncThunk(
+  'session/getContacts',
+  async (contactData: ContactData, { rejectWithValue }) => {
+    const { token } = contactData
+    try {
+        const response = await axios.get('http://localhost:3000/contacts/get_contacts', {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        })
+        return response.data
+      } catch (error: any) {
+        return rejectWithValue(getErrorMessage(error))
+      }
+  }
+)
+
+export const fetchChildren = createAsyncThunk(
+  'session/fetchChildren',
+  async (fetchChildrenData: fetchChildrenData, { rejectWithValue }) => {
+    const { token } = fetchChildrenData
+    try {
+        const response = await axios.post('http://localhost:3000/contacts/fetch_children', fetchChildrenData, {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        })
+        return response.data
+      } catch (error: any) {
+        return rejectWithValue(getErrorMessage(error))
+      }
+  }
+)
 
 const sessionSlice = createSlice({
     name: 'session',
@@ -122,8 +193,8 @@ const sessionSlice = createSlice({
             state.contacts.parent = action.payload.user.contacts.parent || '';
           }
         },
-        setCurrentChatRoom: (state, action: PayloadAction<CurrentChatRoomState>) => {
-          state.currentChatRoom.roomId = action.payload.roomId
+        setCurrentChatRoom: (state, action: PayloadAction<ChatRoomState>) => {
+          state.currentChatRoom.roomId = action.payload._id
           state.currentChatRoom.name = action.payload.name
           state.currentChatRoom.members = action.payload.members
           state.currentChatRoom.messages = action.payload.messages
@@ -141,15 +212,15 @@ const sessionSlice = createSlice({
         builder
             // Send Invitation Code
             .addCase(sendInvitationCode.pending, (state) => {
-                state.status.isLoading = true
+              state.status.isLoading = true
             })
             .addCase(sendInvitationCode.fulfilled, (state) => {
-                state.status.error = null
-                state.status.isLoading = false
+              state.status.error = null
+              state.status.isLoading = false
             })
             .addCase(sendInvitationCode.rejected, (state, action) => {
-                state.status.error = action.error.message || 'Something went wrong'
-                state.status.isLoading = false
+              state.status.error = action.error.message || 'Something went wrong'
+              state.status.isLoading = false
             })
 
             // Create Student Account
@@ -157,30 +228,71 @@ const sessionSlice = createSlice({
               state.status.isLoading = true
             })
             .addCase(createStudentAccount.fulfilled, (state) => {
-                state.status.error = null
-                state.status.isLoading = false
+              state.status.error = null
+              state.status.isLoading = false
             })
             .addCase(createStudentAccount.rejected, (state, action) => {
-                state.status.error = action.error.message || 'Something went wrong'
-                state.status.isLoading = false
+              state.status.error = action.error.message || 'Something went wrong'
+              state.status.isLoading = false
             })
 
             // Get Contacts
             .addCase(getContacts.pending, (state) => {
-                state.status.isLoading = true
+              state.status.isLoading = true
             })
             .addCase(getContacts.fulfilled, (state, action) => {
-                state.status.error = null
-                state.status.isLoading = false
-                state.contacts.teachers = action.payload.teachers,
-                state.contacts.students = action.payload.students,
-                state.contacts.children = action.payload.children,
-                state.contacts.parents = action.payload.parents,
-                state.contacts.parent = action.payload.parent
+              state.status.error = null
+              state.status.isLoading = false
+              state.contacts.teachers = action.payload.teachers,
+              state.contacts.students = action.payload.students,
+              state.contacts.children = action.payload.children,
+              state.contacts.parents = action.payload.parents,
+              state.contacts.parent = action.payload.parent
             })
             .addCase(getContacts.rejected, (state, action) => {
-                state.status.error = action.error.message || 'Something went wrong'
-                state.status.isLoading = false
+              state.status.error = action.error.message || 'Something went wrong'
+              state.status.isLoading = false
+            })
+
+            // Create Chat Rooms
+            .addCase(createChatRoom.pending, (state) => {
+              state.status.isLoading = true
+            })
+            .addCase(createChatRoom.fulfilled, (state) => {
+              state.status.error = null
+              state.status.isLoading = false
+            })
+            .addCase(createChatRoom.rejected, (state, action) => {
+              console.log('createChatRoom rejected', action)
+              state.status.error = action.error.message || 'Something went wrong'
+              state.status.isLoading = false
+            })
+
+            // Get Chat Rooms
+            .addCase(getChatRooms.pending, (state) => {
+              state.status.isLoading = true
+            })
+            .addCase(getChatRooms.fulfilled, (state) => {
+              state.status.error = null
+              state.status.isLoading = false
+            })
+            .addCase(getChatRooms.rejected, (state, action) => {
+              state.status.error = action.error.message || 'Something went wrong'
+              state.status.isLoading = false
+            })
+
+            // Get Children
+            .addCase(fetchChildren.pending, (state) => {
+              state.popoverStatus.isLoading = true
+            })
+            .addCase(fetchChildren.fulfilled, (state, action) => {
+              state.currentCreateRoom.children = action.payload
+              state.popoverStatus.error = null
+              state.popoverStatus.isLoading = false
+            })
+            .addCase(fetchChildren.rejected, (state, action) => {
+              state.popoverStatus.error = action.error.message || 'Something went wrong'
+              state.popoverStatus.isLoading = false
             })
     }
 })
@@ -189,7 +301,7 @@ export const {
     setUser,
     setCurrentChatRoom,
     setRegisteringNewUser,
-    clearLoggedInRequestStatus
+    clearLoggedInRequestStatus,
 } = sessionSlice.actions
 
 const sessionReducer = sessionSlice.reducer

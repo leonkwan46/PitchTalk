@@ -1,4 +1,28 @@
 appId: com.leonkwan46.frontend
+
+devices:
+  - platform: ios
+    model: iPhone 15 Pro
+    os_version: iOS 17.5
+
 ---
 - launchApp
-- assertVisible: 'Login'
+- assertVisible: 'Get Started'
+- tapOn: 'Get Started'
+
+# - assertVisible: 'Email'
+# - tapOn: 'Email'
+# - inputText: 'lk370.chatapp@gmail.com'
+# - hideKeyboard
+
+# - assertVisible: 'Password'
+# - tapOn: 'Password'
+# - inputText: '123456'
+# - hideKeyboard
+
+# - assertVisible: 'Login'
+# - assertVisible:
+#     id: 'loginButton'
+# - tapOn:
+#     id: 'loginButton'
+

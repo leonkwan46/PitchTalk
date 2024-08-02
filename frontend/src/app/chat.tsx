@@ -5,16 +5,17 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { setCurrentChatRoom } from '../redux/reducer/sessionSlice'
+import { getCurrentChatRoom } from '../redux/selectors'
 
 const ChatScreen = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  // const { name } = getChatRoomInfo()
+  const { name } = getCurrentChatRoom()
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
       return dispatch(setCurrentChatRoom({
-        roomId: '',
+        _id: '',
         name: '',
         members: [],
         messages: [],
@@ -25,7 +26,7 @@ const ChatScreen = () => {
   }, [navigation])
   return (
     <SafeAreaView style={styles.container}>
-      <ChatRoomTopHeading name={'name'} />
+      <ChatRoomTopHeading name={name} />
       <ContainerChatMessage />
     </SafeAreaView>
   )

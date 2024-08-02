@@ -13,7 +13,9 @@ export interface SessionState {
   currentChatRoom: CurrentChatRoomState
   contacts: ContactsState
   registeringNewUser: RegisteringNewUserState
+  currentCreateRoom: CurrentCreateRoomState
   status: StatusState
+  popoverStatus: StatusState
 }
 
 export interface RootState {
@@ -46,6 +48,7 @@ export interface AuthUserState {
 }
 
 export interface Message {
+  id: string
   senderId: string
   roomId: string
   message: string
@@ -61,12 +64,21 @@ export interface CurrentChatRoomState {
   createdAt: string
 }
 
+interface Contact {
+  _id: string
+  name: string
+}
+
 export interface ContactsState {
-  teachers: any[]
-  students: any[]
-  children: any[]
-  parents: any[]
-  parent: string
+  teachers: Contact[]
+  students: Contact[]
+  children: Contact[]
+  parents: Contact[]
+  parent: Contact
+}
+
+export interface CurrentCreateRoomState {
+  children: Contact[]
 }
 
 export interface RegisteringNewUserState {
@@ -83,4 +95,11 @@ export interface RegisterInfoState {
 export interface RootState {
   registerInfo: RegisterInfoState
 }
-  
+
+export interface ChatRoomState {
+  _id: string
+  name: string
+  members: any[]
+  messages: Message[]
+  createdAt: string
+}

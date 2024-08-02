@@ -7,16 +7,22 @@ import { Formik, FormikHelpers } from 'formik'
 import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { LoginSchema, SignupSchema } from '../../helpers/validationHelpers'
-import { clearAuthStates, loginUser, signUpUser } from '../../redux/reducer/authSlice'
-import { Button, TextInput, Typography } from '../atom'
 import { setUser } from '@/src/redux/reducer/sessionSlice'
+import { Button, TextInput, Typography } from '../atom'
+import { LoginSchema, SignupSchema } from '@/src/helpers/validationHelpers'
+import { loginUser, clearAuthStates, signUpUser } from '@/src/redux/reducer/authSlice'
 
 // For testing
-// import { setUser } from '@/src/redux/reducer/testingSlice'
+// Parent
 const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123456', confirmPassword: '123456' }
+
+// Teacher
 // const initialValues = { email: 'teacher@gmail.com', password: 'qwe', confirmPassword: 'qwe' }
-// const initialValues = { email: 'student@gmail.com', password: '123456'}
+
+// Student
+// const initialValues = { email: 'student@gmail.com', password: '123456', confirmPassword: '123456' }
+
+// Default
 // const initialValues = {}
 
 interface FormValues {
@@ -49,7 +55,6 @@ const FormLoginSignUp: FC = () => {
                         || (role === 'teacher' && (!isDocVerified || !isGeneralFormComplete))) {
                         router.replace('extraDetailsScreen')
                     } else {
-                        
                         dispatch(setUser({ user, token }))
                         dispatch(clearAuthStates())
                         router.replace('(tabs)')
@@ -60,8 +65,8 @@ const FormLoginSignUp: FC = () => {
             })
         // Register Page
         } else {
-            dispatch(signUpUser(payload)).then(() => {
-                router.replace('extraDetailsScreen')
+            dispatch(signUpUser(payload)).then((res) => {
+                if (signUpUser.fulfilled.match(res)) router.replace('extraDetailsScreen')
             }).catch((err) => {
                 throw new Error(err)
             })
@@ -114,8 +119,8 @@ const FormLoginSignUp: FC = () => {
                             </Box>
                         }
                         <Box style={styles.buttonContainer}>
-                            <Button onPress={handleSubmit} color='primary' size='xl' >
-                                <Typography size='lg' color='white'>{isLogin ? 'Login' : 'Register'}</Typography>
+                            <Button id='loginButton' onPress={handleSubmit} color='primary' size='xl' >
+                                <Typography id='login' size='lg' color='white'>{isLogin ? 'Login' : 'Register'}</Typography>
                             </Button>
                         </Box>
                     </VStack>

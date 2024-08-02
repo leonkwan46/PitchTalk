@@ -1,21 +1,15 @@
+import { TopHeading } from '@/src/components/shared'
+import LoggedInContainer from '@/src/components/shared/loggedIn/LoggedInContainer'
 import { View, Text, StyleSheet } from 'react-native'
 
 const SettingsTab = () => {
     
   return (
-    <View style={styles.container}>
-      <Text>Tab [SettingsTab|SettingsTab]</Text>
-    </View>
+    <LoggedInContainer>
+        <TopHeading title={'Settings'} />
+    </LoggedInContainer>
   )
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})
 
 export default SettingsTab

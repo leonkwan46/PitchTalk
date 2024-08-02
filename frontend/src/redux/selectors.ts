@@ -36,6 +36,20 @@ const getUserContacts = () => {
   return useTypedSelector(state => state.session.contacts)
 }
 
+// Create Chat Room
+const getPopoverStatus = () => {
+  return useTypedSelector(state => state.session.popoverStatus)
+}
+
+const getCurrentCreateRoom = () => {
+  return useTypedSelector(state => state.session.currentCreateRoom)
+}
+
+// Current Chat Room
+const getCurrentChatRoom = () => {
+  return useTypedSelector(state => state.session.currentChatRoom)
+}
+
 // Registering for new user
 const getRegisteringNewUserState = () => {
   return useTypedSelector(state => state.session.registeringNewUser)
@@ -59,6 +73,9 @@ export {
   getUserStatus,
   getUserToken,
   getUserContacts,
+  getPopoverStatus,
+  getCurrentCreateRoom,
+  getCurrentChatRoom,
   getRegisteringNewUserState
 }
 

@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react'
 import { SafeAreaView, StyleSheet, View } from 'react-native'
-import StatusContainer from '../feedback/StatusContainer'
 
 interface LoggedInContainerProps {
     children: ReactNode

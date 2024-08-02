@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
 import ContactList from './ContactList'
-import { getLoggedInUser, getSessionStatus, getUserRole } from '../../redux/selectors'
+import { getLoggedInUser } from '../../redux/selectors'
 import AddBadge from './AddBadge'
-import { Loading, TopHeading } from '../shared'
+import { TopHeading } from '../shared'
 
 const ContainerContact: FC = () => {
     const { role } = getLoggedInUser()
@@ -12,7 +12,7 @@ const ContainerContact: FC = () => {
         <>
             <SafeAreaView>
                 <ScrollView>
-                    <TopHeading title='Contact' />
+                    <TopHeading title='Contacts' />
                     <ContactList />
                 </ScrollView>
             </SafeAreaView>
@@ -20,16 +20,5 @@ const ContainerContact: FC = () => {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    divider: {
-        padding: 10,
-        backgroundColor: 'white',
-        color: 'white',
-    },
-})
 
 export default ContainerContact

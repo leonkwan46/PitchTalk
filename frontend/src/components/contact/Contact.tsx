@@ -1,6 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Image, Pressable, StyleSheet, View } from 'react-native'
 import { Typography } from '../atom'
+import CreateRoomPopover from './CreateRoomPopover'
+import { getLoggedInUser } from '@/src/redux/selectors'
 
 const teacherPic = require('../../assets/images/teacher.jpg')
 const parentPic = require('../../assets/images/parent.jpg')
@@ -14,11 +16,23 @@ interface ContactProps {
 }
 
 const Contact: FC<ContactProps> = (props) => {
+  const { role: currentUserRole } = getLoggedInUser()
   const { name, role } = props.contactData
   const profilePic = role === 'teacher' ? teacherPic : role === 'parent' ? parentPic : studentPic
+  const [isPopoverVisible, setIsPopoverVisible] = useState(false)
+
+  const handleOpenPopover = () => {
+    if (currentUserRole !== 'teacher') return
+    setIsPopoverVisible(true)
+  }
+
+  const handleClosePopover = () => {
+    setIsPopoverVisible(false)
+  }
 
   return (
       <Pressable
+      onPress={() => handleOpenPopover()}
       style={({ pressed }) => [
         {
           backgroundColor: pressed ? '#333' : '#000',
@@ -33,6 +47,15 @@ const Contact: FC<ContactProps> = (props) => {
               <Typography size='lg' color='secondary'>{name}</Typography>
             </View>
           </View>
+
+          {isPopoverVisible && (
+              <CreateRoomPopover
+                isPopoverVisible={isPopoverVisible}
+                handleClosePopover={handleClosePopover}
+                role={role}
+              />
+          )}
+
       </Pressable>
   )
 }

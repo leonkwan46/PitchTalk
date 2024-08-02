@@ -65,38 +65,39 @@ userDataHelper.fetchUserDataByIDAndRole = async (id, role) => {
     return userData
 }
 
-// Fetch children data
+const removeHashPassword = (user) => {
+    const { hashPassword, ...rest } = user
+    return rest
+}
+
 const fetchChildren = async (childIds) => {
     const children = await Promise.all(childIds.map(async (childId) => {
         const child = await Student.findById(childId)
-        return child ? { ...child.toObject() } : null
+        return child ? removeHashPassword({ ...child.toObject() }) : null
     }))
     return children.filter(child => child !== null)
 }
 
-// Fetch teachers data
 const fetchTeachers = async (teacherIds) => {
     const teachers = await Promise.all(teacherIds.map(async (teacherId) => {
         const teacher = await Teacher.findById(teacherId)
-        return teacher ? { ...teacher.toObject() } : null
+        return teacher ? removeHashPassword({ ...teacher.toObject() }) : null
     }))
     return teachers.filter(teacher => teacher !== null)
 }
 
-// Fetch parents data
 const fetchParents = async (parentIds) => {
     const parents = await Promise.all(parentIds.map(async (parentId) => {
         const parent = await Parent.findById(parentId)
-        return parent ? { ...parent.toObject() } : null
+        return parent ? removeHashPassword({ ...parent.toObject() }) : null
     }))
     return parents.filter(parent => parent !== null)
 }
 
-// Fetch students data
 const fetchStudents = async (studentIds) => {
     const students = await Promise.all(studentIds.map(async (studentId) => {
         const student = await Student.findById(studentId)
-        return student ? { ...student.toObject() } : null
+        return student ? removeHashPassword({ ...student.toObject() }) : null
     }))
     return students.filter(student => student !== null)
 }

@@ -31,7 +31,6 @@ const ContactList: FC = () => {
     useFocusEffect(
         useCallback(() => {
             fetchContacts()
-            console.log(allContacts)
         }, [])
     )
 
@@ -41,7 +40,7 @@ const ContactList: FC = () => {
             <>
             {allContacts.length > 0 && (
                 <View style={styles.container}>
-                    <VStack spacing={10} divider={<Divider />}>
+                    <VStack spacing={10}>
                         {allContacts.map((contact) => (
                             <Box key={contact._id}>
                                 <Contact contactData={contact} />

@@ -1,19 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { ChatMessageList } from '@/src/components/chat'
+import { TopHeading } from '@/src/components/shared'
+import LoggedInContainer from '@/src/components/shared/loggedIn/LoggedInContainer'
+import { ScrollView } from 'react-native'
 
 const MessagesTab = () => {
   return (
-    <View style={styles.container}>
-      <Text>Tab [Messages]</Text>
-    </View>
+    <LoggedInContainer>
+      <ScrollView>
+          <TopHeading title='Messages' />
+          <ChatMessageList />
+      </ScrollView>
+    </LoggedInContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})
 
 export default MessagesTab

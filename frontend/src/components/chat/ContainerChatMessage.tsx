@@ -6,28 +6,30 @@ import Message from './Message'
 import MessageInput from './MessageInput'
 
 const ContainerChatMessage: FC = () => {
-    const { userId } = useTypedSelector(state => state.session.user)
-    const { roomId, name, members, messages: chatHistory, createdAt } = useTypedSelector(state => state.session.currentChatRoom)
+    const { userId, role } = useTypedSelector(state => state.session.user)
+    const { roomId, name, members, messages: chatHistory } = useTypedSelector(state => state.session.currentChatRoom)
 
     const [oldMessages, setOldMessages] = useState<MessageData[]>([])
     const [message, setMessage] = useState<string>('')
     const flatListRef = useRef<FlatList>(null)
 
     const handleSendMessage = () => {
-        sendMessage(roomId, message, userId)
+        if (message === '') return
+        sendMessage(roomId, message, userId, role)
         setMessage('')
     }
 
     const fetchNewMessage = async () => {
-      const lastestMessage = await receiveMessage()
-      const { message, roomId, senderId } = lastestMessage
-      const newMessage = {
-        id: new Date().getTime().toString(),
-        message,
-        roomId,
-        senderId,
-    }
-      setOldMessages([...oldMessages, newMessage])
+        const lastestMessage = await receiveMessage()
+        const { message, roomId, senderId } = lastestMessage
+        const newMessage = {
+            id: new Date().getTime().toString(),
+            message,
+            roomId,
+            senderId,
+            senderRole: role
+        }
+        setOldMessages([...oldMessages, newMessage])
     }
 
     useEffect(() => {
@@ -46,7 +48,7 @@ const ContainerChatMessage: FC = () => {
                     data={chatHistory && oldMessages ? [...chatHistory, ...oldMessages] : []}
                     renderItem={item => <Message messageData={item} />}
                     keyExtractor={item => item.id || item._id}
-                    onLayout={() => {
+                    onContentSizeChange={() => {
                         flatListRef.current?.scrollToEnd({ animated: true })
                     }}
                 />

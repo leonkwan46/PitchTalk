@@ -4,13 +4,18 @@ const connectSocketIO = (io) => {
     let onlineUsers = new Set()
 
     io.on('connection', (socket) => {
+        // Add user to online users
+        onlineUsers.add(socket.id)
+
         console.log('User connected')
         console.log('===Online Users===')
         console.log(onlineUsers)
         console.log('==================')
-        // Add user to online users
-        onlineUsers.add(socket.id)
 
+        // Join room
+        socket.on('joinRoom', (roomData) => {
+            chatHelper.joinRoom(io, socket, roomData)
+        })
         // Send message
         socket.on('sendMessage', (props) => {
             chatHelper.handleSendMessage(io, socket, props)

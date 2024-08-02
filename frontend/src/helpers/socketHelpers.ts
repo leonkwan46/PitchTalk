@@ -1,9 +1,12 @@
 import { io, Socket } from 'socket.io-client'
+import { Message } from '../types/types'
 
 export interface MessageData {
-  message: string;
-  roomId: string;
-  senderId: string;
+  id: string
+  message: string
+  roomId: string
+  senderId: string
+  senderRole: string
 }
 
 const socket: Socket = io('http://localhost:3000')
@@ -17,8 +20,8 @@ const disconnectSocket = async (): Promise<void> => {
   await socket.disconnect()
 }
 
-const sendMessage = async (roomId: string, message: string, userId: string): Promise<void> => {
-  await socket.emit('sendMessage', { roomId, message, userId })
+const sendMessage = async (roomId: string, message: string, userId: string, userRole: string): Promise<void> => {
+  await socket.emit('sendMessage', { roomId, message, userId, userRole })
 }
 
 const receiveMessage = (): Promise<MessageData>=> {
@@ -29,4 +32,17 @@ const receiveMessage = (): Promise<MessageData>=> {
   })
 }
 
-export { disconnectSocket, getSocketId, receiveMessage, sendMessage }
+const joinRoomAndGetChatHistory = (roomId: string): Promise<Message[]> => {
+  return new Promise((resolve, reject) => {
+      socket.emit('joinRoom', { roomId })
+      socket.once('roomJoined', (result) => {
+        console.log(result)
+          resolve(result.chatHistory)
+      })
+      socket.once('roomJoinError', (error) => {
+          reject(error)
+      })
+  })
+}
+
+export { disconnectSocket, getSocketId, receiveMessage, sendMessage, joinRoomAndGetChatHistory }

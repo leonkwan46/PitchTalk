@@ -18,19 +18,11 @@ router.post('/send_invitation', authHandler, async (req, res, next) => {
         // If user does not exist, create user
         if (!recipient) recipient = await authHelper.createAccount(email, '123456', 'parent')
 
-        // Use $addToSet to ensure uniqueness in the array
-        const isUpdatedParent = await Parent.updateMany(
-            { _id: recipient.user._id },
-            { $addToSet: { teachers: teacherID } }
-        );
-        if (!isUpdatedParent) throw new Error("Failed to update parent's teacher list");
-    
-        const isUpdatedTeacher = await Teacher.updateMany(
-            { _id: teacherID },
-            { $addToSet: { parents: recipient.user._id } }
-        );
-        if (!isUpdatedTeacher) throw new Error("Failed to update teacher's parent list");
-  
+        const isUpdatedParent = await Parent.updateMany({ _id: recipient.user._id }, { $push: { teachers: teacherID } })
+        if (!isUpdatedParent) throw new Error("Failed to update parent's teacher list")
+
+        const isUpdatedTeacher = await Teacher.updateMany({ _id: teacherID }, { $push: { parents: recipient.user._id } })
+        if (!isUpdatedTeacher) throw new Error("Failed to update teacher's parent list")
 
         // Generate OTP and send to user
         const otpCode = await OTPHelper.generateOTP(recipient.user.hashPassword)
@@ -68,6 +60,21 @@ router.get('/get_contacts', authHandler, async (req, res, next) => {
     try {
         const userData = await authHelper.returnUserDataToClient(req.user, true)
         return res.status(200).json(userData.contacts)
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.post('/fetch_children', authHandler, async (req, res, next) => {
+    const { selectedParentId } = req.body
+    try {
+        const parent = await Parent.findById(selectedParentId)
+
+        const userData = await authHelper.returnUserDataToClient(parent)
+
+        console.log(userData.contacts.children)
+
+        return res.status(200).json(userData?.contacts?.children)
     } catch (err) {
         next(err)
     }
