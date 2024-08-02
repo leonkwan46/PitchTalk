@@ -94,8 +94,6 @@ const CreateRoomActionForm: FC<CreateRoomActionFormProps> = ({ handleClosePopove
         }
     }
 
-    console.log(getCurrentCreateRoom().children)
-
     useFocusEffect(
         useCallback(() => {
             fetchChildrenData()

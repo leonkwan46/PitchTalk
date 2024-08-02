@@ -3,6 +3,7 @@ import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { getButtonStyle } from '@/src/helpers/styleHelper'
 
 interface ButtonProps {
+    id?: string
     children: React.ReactNode
     color?: string
     size?: string
@@ -12,6 +13,7 @@ interface ButtonProps {
 }
 
 const Button: FC<ButtonProps> = ({
+    id='',
     children,
     color='',
     size='',
@@ -23,7 +25,7 @@ const Button: FC<ButtonProps> = ({
     const style: StyleProp<ViewStyle> = [containerStyle, extraStyles]
 
     return (
-        <TouchableOpacity style={style} onPress={onPress}>
+        <TouchableOpacity id={id} style={style} onPress={onPress}>
             {children}
         </TouchableOpacity>
     )

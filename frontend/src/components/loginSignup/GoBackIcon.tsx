@@ -1,6 +1,7 @@
 import { changeToLogin } from '@/src/redux/reducer/registerInfoSlice'
 import { getLoggedInUser } from '@/src/redux/selectors'
 import { AppDispatch } from '@/src/redux/store'
+import { router } from 'expo-router'
 import React, { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -16,6 +17,7 @@ const GoBackIcon: FC<GoBackIconProps> = ({buttonStyle, iconColor}) => {
     const { token } = getLoggedInUser()
     const handleOnPress = () => {
         if (!token) dispatch(changeToLogin())
+        else router.back()
     }
     return (
         <TouchableOpacity onPress={handleOnPress} style={buttonStyle}>

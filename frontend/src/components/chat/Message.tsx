@@ -21,7 +21,6 @@ interface MessageProps {
 const Message: FC<MessageProps> = ({
     messageData
 }) => {
-    console.log(messageData)
     const { message, senderId, senderRole } = messageData.item
     const { userId } = useTypedSelector(state => state.session.user)
 

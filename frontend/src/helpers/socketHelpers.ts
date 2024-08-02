@@ -36,8 +36,7 @@ const joinRoomAndGetChatHistory = (roomId: string): Promise<Message[]> => {
   return new Promise((resolve, reject) => {
       socket.emit('joinRoom', { roomId })
       socket.once('roomJoined', (result) => {
-        console.log(result)
-          resolve(result.chatHistory)
+          resolve(result.chatHistory.messages)
       })
       socket.once('roomJoinError', (error) => {
           reject(error)

@@ -263,7 +263,6 @@ const sessionSlice = createSlice({
               state.status.isLoading = false
             })
             .addCase(createChatRoom.rejected, (state, action) => {
-              console.log('createChatRoom rejected', action)
               state.status.error = action.error.message || 'Something went wrong'
               state.status.isLoading = false
             })
