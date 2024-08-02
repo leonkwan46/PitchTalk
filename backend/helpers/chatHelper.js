@@ -1,10 +1,9 @@
-import { Message } from '../db/modals/index.js'
+import { Message, Room } from '../db/modals/index.js'
 import userDataHelper from './userDataHelper.js'
 
 const chatHelper = {}
 
 chatHelper.handleSendMessage = async (io, socket, props) => {
-    console.log('handleSendMessage', props)
     const { roomId, message, userId, userRole } = props
 
     const newMessage = Message({
@@ -16,10 +15,11 @@ chatHelper.handleSendMessage = async (io, socket, props) => {
         isRead: false,
     })
 
-    console.log('newMessage', newMessage)
-
     // Save message to database
     await newMessage.save()
+
+    // Save message to room
+    await Room.updateOne({ _id: roomId }, { $push: { messages: newMessage } })
 
     io.emit('chatMessage', { sender: socket.id, data: newMessage })
 }
@@ -59,7 +59,7 @@ chatHelper.generateRoomMemberData = async (userID, role, data) => {
 
 chatHelper.joinRoom = async (io, socket, roomData) => {
     const { roomId } = roomData
-    const chatHistory = await Message.find({ roomId: roomId }).sort({ sentAt: 1 })
+    const chatHistory = await Room.findById(roomId).populate('messages')
 
     socket.join(roomId)
     io.to(roomId).emit('roomJoined', { chatHistory })
