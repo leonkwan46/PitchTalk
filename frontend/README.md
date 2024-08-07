@@ -1,50 +1,55 @@
-# Welcome to your Expo app 👋
+# PitchTalk
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+PitchTalk is a React Native application designed to facilitate communication between teachers, parents, and students through a chat system. The app offers [highlight key features or functionalities].
 
-1. Install dependencies
+## Prerequisites
 
-   ```bash
-   npm install
-   ```
+- Node.js (version 18.x or later)
+- npm (comes with Node.js)
+- Expo CLI (for development and testing)
 
-2. Start the app
+## Getting Started
 
-   ```bash
-    npx expo start
-   ```
+1. **Clone the repository:**
 
-In the output, you'll find options to open the app in a
+    ```bash
+    git clone https://github.com/yourusername/pitchtalk.git
+    cd pitchtalk
+    ```
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+2. **Install dependencies:**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+    ```bash
+    npm install
+    ```
 
-## Get a fresh project
+3. **Start the development server:**
 
-When you're ready, run:
+    ```bash
+    npm start
+    ```
+
+4. **Run the app on an iOS simulator or Android emulator:**
+
+    For iOS:
+
+    ```bash
+    npm run ios
+    ```
+
+    For Android:
+
+    ```bash
+    npm run android
+    ```
+
+## Running Tests
+
+### Unit Tests
+
+To run unit tests, use the following command:
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npm test
