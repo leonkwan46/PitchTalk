@@ -27,6 +27,16 @@ interface fetchChildrenData {
   selectedParentId: string
 }
 
+interface ApplicationData {
+  token: string
+}
+
+interface UpdateApplicationData {
+  token: string
+  teacherId: string
+  approved: boolean
+}
+
 const initialState: SessionState = {
     user: {
         userId: '',
@@ -169,6 +179,40 @@ export const fetchChildren = createAsyncThunk(
   }
 )
 
+export const getApplications = createAsyncThunk(
+  'session/getApplications',
+  async (applicationData: ApplicationData, { rejectWithValue }) => {
+    const { token } = applicationData
+    try {
+        const response = await axios.get('http://localhost:3000/reviewer/get_applications', {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        })
+        return response.data
+      } catch (error: any) {
+        return rejectWithValue(getErrorMessage(error))
+      }
+  }
+)
+
+export const updateApplication = createAsyncThunk(
+  'session/updateApplication',
+  async (updateApplicationData: UpdateApplicationData, { rejectWithValue }) => {
+    const { token } = updateApplicationData
+    try {
+        const response = await axios.post('http://localhost:3000/reviewer/update_application', updateApplicationData, {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        })
+        return response.data
+      } catch (error: any) {
+        return rejectWithValue(getErrorMessage(error))
+      }
+  }
+)
+
 const sessionSlice = createSlice({
     name: 'session',
     initialState: {...initialState},
@@ -292,6 +336,32 @@ const sessionSlice = createSlice({
             .addCase(fetchChildren.rejected, (state, action) => {
               state.popoverStatus.error = action.error.message || 'Something went wrong'
               state.popoverStatus.isLoading = false
+            })
+
+            // Get Applications
+            .addCase(getApplications.pending, (state) => {
+              state.status.isLoading = true
+            })
+            .addCase(getApplications.fulfilled, (state, action) => {
+              state.status.error = null
+              state.status.isLoading = false
+            })
+            .addCase(getApplications.rejected, (state, action) => {
+              state.status.error = action.error.message || 'Something went wrong'
+              state.status.isLoading = false
+            })
+
+            // Update Application
+            .addCase(updateApplication.pending, (state) => {
+              state.status.isLoading = true
+            })
+            .addCase(updateApplication.fulfilled, (state, action) => {
+              state.status.error = null
+              state.status.isLoading = false
+            })
+            .addCase(updateApplication.rejected, (state, action) => {
+              state.status.error = action.error.message || 'Something went wrong'
+              state.status.isLoading = false
             })
     }
 })

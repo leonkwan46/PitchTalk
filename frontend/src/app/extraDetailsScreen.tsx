@@ -9,6 +9,7 @@ import { TopHeading } from '../components/shared'
 import { AppDispatch } from '../redux/store'
 import FormTeacher from '../components/extraDetails/FormTeacher'
 import { getAuthUser, getLoggedInUser, getRegisteringNewUserState } from '../redux/selectors'
+import ApplicationStatus from '../components/application/ApplicationStatus'
 
 const ExtraDetailsScreen = () => {
     const dispatch: AppDispatch = useDispatch()
@@ -16,11 +17,11 @@ const ExtraDetailsScreen = () => {
     const loggedInUser = getLoggedInUser()
     const user = getAuthUser()
     const isStudent = getRegisteringNewUserState().isStudent
-    const { role, isGeneralFormComplete, isInvited, isInvitationVerified, isDocVerified } = user
-
+    const { role, isGeneralFormComplete, isInvited, isInvitationVerified, isDocUploaded, isDocVerified, isDocRejected } = user
+    
     const [isTeacher, setIsTeacher] = useState(false)
     const [isParent, setIsParent] = useState(false)
-
+    
     const isStudentCreation = isStudent && loggedInUser.role === 'parent'
     const shouldSkipGeneralForm = isParent && isGeneralFormComplete && isInvited
     const isFullFormComplete = isGeneralFormComplete && (isTeacher && isDocVerified || isParent && isInvitationVerified)
@@ -44,9 +45,9 @@ const ExtraDetailsScreen = () => {
                 <TopHeading title={isStudentCreation ? 'Create Account' : 'Extra Details'} subtitle={isStudentCreation ? 'for student' : `for ${role}s`} />
                 { (isStudentCreation) && <FormStudent /> }
                 { (!isGeneralFormComplete && !isStudentCreation) && <FormGeneral /> }
-                { isTeacher && <FormTeacher /> }
+                { (isTeacher && !isDocUploaded) && <FormTeacher /> }
                 { ((isParent || shouldSkipGeneralForm) && !isStudentCreation) && <FormParent /> }
-
+                { (isTeacher && !isDocVerified) && <ApplicationStatus isDocRejected={isDocRejected} /> }
             </View>
         </ContainerExtraDetails>
     )

@@ -34,9 +34,18 @@ export interface AuthInvitationPayload {
 
 export interface UpdateTeacherDocumentsPayload {
     userId: string
-    selectedDBS: string | null
-    selectedID: string | null
-    selectedProfessionalCert: string | null
+    selectedDBS: {
+        name: string
+        uri: string
+    }
+    selectedID: {
+        name: string
+        uri: string
+    }
+    selectedProfessionalCert: {
+        name: string
+        uri: string
+    }
 }
 
 const initialState: AuthState = {
@@ -51,7 +60,10 @@ const initialState: AuthState = {
             students: [],
             children: [],
             parents: [],
-            parent: '',
+            parent: {
+                _id: '',
+                name: '',
+            },
         },
         // Basic
         name: '',
@@ -67,6 +79,7 @@ const initialState: AuthState = {
         // Teacher
         isDocUploaded: false,
         isDocVerified: false,
+        isDocRejected: false,
     },
 
     status: {
@@ -76,15 +89,14 @@ const initialState: AuthState = {
 }
 export const signUpUser = createAsyncThunk<
         UserStatePayload,
-        SignUpPayload,
-        { rejectValue: string }
-    >(
+        SignUpPayload
+        >(
         'auth/signUpUser',
         async (userData, { rejectWithValue }) => {
             try {
                 const response = await axios.post('http://localhost:3000/signup', userData)
                 return response.data
-            } catch (error) {
+            } catch (error: any) {
                 return rejectWithValue(getErrorMessage(error))
             }
         }
@@ -92,15 +104,19 @@ export const signUpUser = createAsyncThunk<
 
 export const loginUser = createAsyncThunk<
         UserStatePayload,
-        LoginPayload,
-        { rejectValue: string }
-    >(
+        LoginPayload
+        >(
         'auth/loginUser',
         async (userData, { rejectWithValue }) => {
             try {
-                const response = await axios.post('http://localhost:3000/login', userData)
-                return response.data
-            } catch (error) {
+                if (userData.email.includes('reviewer')) {
+                    const response = await axios.post('http://localhost:3000/login/reviewer', userData)
+                    return response.data
+                } else {
+                    const response = await axios.post('http://localhost:3000/login', userData)
+                    return response.data
+                }
+            } catch (error: any) {
                 return rejectWithValue(getErrorMessage(error))
             }
         }
@@ -164,7 +180,10 @@ const authSlice = createSlice({
                     students: [],
                     children: [],
                     parents: [],
-                    parent: '',
+                    parent: {
+                        _id: '',
+                        name: '',
+                    },
                 },
                 role: '',
                 token: '',
@@ -177,6 +196,7 @@ const authSlice = createSlice({
                 isInvitationVerified: false,
                 isDocUploaded: false,
                 isDocVerified: false,
+                isDocRejected: false,
             }
             state.status.isLoading = false
             state.status.error = null
@@ -227,7 +247,10 @@ const authSlice = createSlice({
                         students: [],
                         children: [],
                         parents: [],
-                        parent: '',
+                        parent: {
+                            _id: '',
+                            name: '',
+                        },
                     },
                     role: '',
                     token: '',
@@ -240,6 +263,7 @@ const authSlice = createSlice({
                     isInvitationVerified: false,
                     isDocUploaded: false,
                     isDocVerified: false,
+                    isDocRejected: false,
                 }
                 state.status.error = action.error.message || 'Something went wrong'
                 state.status.isLoading = false
@@ -265,17 +289,18 @@ const authSlice = createSlice({
                 if (action.payload.user.role === 'teacher') {
                     // Ensure contacts is defined
                     if (!state.user.contacts) {
-                        state.user.contacts = { students: [], parents: [], teachers: [], children: [], parent: '' }
+                        state.user.contacts = { students: [], parents: [], teachers: [], children: [], parent: { _id: '', name: '' } }
                     }
                     // Teacher Info
                     state.user.isDocUploaded = action.payload.user.isDocUploaded
                     state.user.isDocVerified = action.payload.user.isDocVerified
+                    state.user.isDocRejected = action.payload.user.isDocRejected
                     state.user.contacts.students = action.payload.user.contacts?.students ?? []
                     state.user.contacts.parents = action.payload.user.contacts?.parents ?? []
                 } else if (action.payload.user.role === 'parent') {
                     // Ensure contacts is defined
                     if (!state.user.contacts) {
-                        state.user.contacts = { students: [], parents: [], teachers: [], children: [], parent: '' }
+                        state.user.contacts = { students: [], parents: [], teachers: [], children: [], parent: { _id: '', name: '' } }
                     }
                     // Parent Info
                     state.user.isInvited = action.payload.user.isInvited
@@ -296,7 +321,10 @@ const authSlice = createSlice({
                         students: [],
                         children: [],
                         parents: [],
-                        parent: '',
+                        parent: {
+                            _id: '',
+                            name: '',
+                        },
                     },
                     role: '',
                     token: '',
@@ -309,6 +337,7 @@ const authSlice = createSlice({
                     isInvitationVerified: false,
                     isDocUploaded: false,
                     isDocVerified: false,
+                    isDocRejected: false,
                 }
                 state.status.error = action.error.message || 'Something went wrong'
                 state.status.isLoading = false

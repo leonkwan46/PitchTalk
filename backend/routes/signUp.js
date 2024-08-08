@@ -1,5 +1,5 @@
 import express from "express"
-import { User, Document, Parent } from "../db/modals/index.js"
+import { User, Document, Parent, Application } from "../db/modals/index.js"
 import authHelper from "../helpers/authHelper.js"
 import authHandler from "../handlers/authHandler.js"
 import OTPHelper from "../helpers/OTPHelper.js"
@@ -56,19 +56,28 @@ router.post('/extra_details/upload', async (req, res, next) => {
         let user = await User.findById(userId)
         if (!user) throw new Error("User not found")
 
-        let documents = new Document({
+        const documents = new Document({
             DBSCert: selectedDBS,
             ProofOfId: selectedID,
             ProfessionalCert: selectedProfessionalCert,
         })
 
         // Save documents
-        let savingDocuments = await documents.save()
+        const savingDocuments = await documents.save()
         if (!savingDocuments) throw new Error("Failed to save documents")
 
         // Update user
         user.isDocUploaded = true
         user.documents = savingDocuments
+        // Create new application
+        const newApplication = new Application({
+            teacher: user._id,
+            isPending: true
+        })
+
+        // Save application
+        const savingApplication = await newApplication.save()
+        if (!savingApplication) throw new Error("Failed to save application")
 
         // Save user
         await user.save()

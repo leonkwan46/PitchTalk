@@ -1,4 +1,4 @@
-import { Parent, Student, Teacher } from "../db/modals/index.js"
+import { Application, Parent, Student, Teacher } from "../db/modals/index.js"
 
 const userDataHelper = {}
 
@@ -25,6 +25,7 @@ userDataHelper.fetchTeacherUserData = async (user) => {
     return {
         isDocUploaded: user.isDocUploaded,
         isDocVerified: user.isDocVerified,
+        isDocRejected: user.isDocRejected,
         contacts: {
             parents,
             students,
@@ -46,6 +47,12 @@ userDataHelper.fetchStudentUserData = async (user) => {
     }
 }
 
+// Fetch reviewer user data
+userDataHelper.fetchReviewerUserData = async () => {
+    const applications = await fetchAllApplications() ?? []
+    return applications
+}
+
 // Fetch user data by role and return ID
 userDataHelper.fetchUserDataByIDAndRole = async (id, role) => {
     let userData
@@ -63,6 +70,19 @@ userDataHelper.fetchUserDataByIDAndRole = async (id, role) => {
             break
     }
     return userData
+}
+
+// Fetch applications
+const fetchAllApplications = async () => {
+    const applications = await Application.find()
+        .populate({
+            path: 'teacher',
+            select: '-hashPassword',
+            populate: {
+                path: 'documents'
+            }
+        })
+    return applications
 }
 
 const removeHashPassword = (user) => {

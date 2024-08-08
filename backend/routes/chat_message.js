@@ -33,7 +33,6 @@ router.post('/create_chat_room', authHandler, async (req, res, next) => {
         await newRoom.save()
         return res.status(200).json(newRoom)
     } catch (err) {
-        console.log(err)
         next(err)
     }
 })

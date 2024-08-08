@@ -1,4 +1,4 @@
-import { Parent, Student, Teacher, User } from '../db/modals/index.js'
+import { Parent, Reviewer, Student, Teacher, User } from '../db/modals/index.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import userDataHelper from './userDataHelper.js'
@@ -46,6 +46,9 @@ authHelper.returnUserDataToClient = async (user = '', isValid = false) => {
         case 'student':
             additionalUserData = await userDataHelper.fetchStudentUserData(user)
             break
+        case 'reviewer':
+            additionalUserData = await userDataHelper.fetchReviewerUserData(user)
+            break
         default:
             break
     }
@@ -82,27 +85,41 @@ authHelper.createAccount = async (email, password, role) => {
     let user = await authHelper.validateUserByEmail(email)
     const hashPassword = await authHelper.generateHashPassword(password)
     // Create User
-    if (role === 'parent') {
-        user = new Parent({
-            email,
-            hashPassword,
-            role,
-            isRegistered: true,
-        })
-    } else if (role === 'teacher') {
-        user = new Teacher({
-            email,
-            hashPassword,
-            role,
-            isRegistered: true,
-        })
-    } else if (role === 'student') {
-        user = new Student({
-            email,
-            hashPassword,
-            role,
-            isRegistered: true,
-        })
+    switch (role) {
+        case 'parent':
+            user = new Parent({
+                email,
+                hashPassword,
+                role,
+                isRegistered: true
+            })
+            break
+        case 'teacher':
+            user = new Teacher({
+                email,
+                hashPassword,
+                role,
+                isRegistered: true
+            })
+            break
+        case 'student':
+            user = new Student({
+                email,
+                hashPassword,
+                role,
+                isRegistered: true
+            })
+            break
+        case 'reviewer':
+            user = new Reviewer({
+                email,
+                hashPassword,
+                role,
+                isRegistered: true
+            })
+            break
+        default:
+            throw new Error('Invalid role')
     }
     // Store User
     const storingUser = await user.save()

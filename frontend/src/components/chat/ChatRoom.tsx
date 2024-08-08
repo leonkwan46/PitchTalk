@@ -8,6 +8,7 @@ import { Typography } from '../atom'
 import { router } from 'expo-router'
 import { ChatRoomState } from '@/src/types/types'
 import { AppDispatch } from '@/src/redux/store'
+import { Divider } from '../shared'
 
 interface ChatRoomProps {
     roomData: ChatRoomState
@@ -36,6 +37,9 @@ const ChatRoom: FC<ChatRoomProps> = ({ roomData }) => {
                     <Typography color='secondary'>{roomData.name}</Typography>
                 </View>
             </Pressable>
+
+            <Divider /> 
+
         </View>
     )
 }

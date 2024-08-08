@@ -1,5 +1,6 @@
 import { SCREEN_ROUTES } from '@/src/helpers/generalHelpers'
 import { getColor } from '@/src/helpers/styleHelper'
+import { getLoggedInUser, getUserRole } from '@/src/redux/selectors'
 import { router, Tabs } from 'expo-router'
 import { FC, useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
@@ -27,6 +28,7 @@ const NavIcon: FC<NavIconProps> = ({ name, screen, selectedIcon, onPress }) => {
 
 const TabLayout = () => {
     const [selectedIcon, setSelectedIcon] = useState(`${SCREEN_ROUTES.MESSAGE}`)
+    const role = getUserRole()
 
     const handleOnPress = (screen: string) => {
         setSelectedIcon(screen)
@@ -50,6 +52,7 @@ const TabLayout = () => {
                     href: null,
                 }}
             />
+
             <Tabs.Screen
                 name='contacts'
                 options={{
@@ -66,6 +69,7 @@ const TabLayout = () => {
                     tabBarIcon: () => <NavIcon name='comments' screen={SCREEN_ROUTES.MESSAGE} selectedIcon={selectedIcon} onPress={handleOnPress} />,
                 }}
             />
+
             <Tabs.Screen
                 name='settings'
                 options={{

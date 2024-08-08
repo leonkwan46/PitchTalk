@@ -10,19 +10,19 @@ devices:
 - assertVisible: 'Get Started'
 - tapOn: 'Get Started'
 
-# - assertVisible: 'Email'
-# - tapOn: 'Email'
-# - inputText: 'lk370.chatapp@gmail.com'
-# - hideKeyboard
+- assertVisible: 'Email'
+- tapOn: 'Email'
+- inputText: 'lk370.chatapp@gmail.com'
+- hideKeyboard
 
-# - assertVisible: 'Password'
-# - tapOn: 'Password'
-# - inputText: '123456'
-# - hideKeyboard
+- assertVisible: 'Password'
+- tapOn: 'Password'
+- inputText: '123456'
+- hideKeyboard
 
-# - assertVisible: 'Login'
-# - assertVisible:
-#     id: 'loginButton'
-# - tapOn:
-#     id: 'loginButton'
+- assertVisible: 'Login'
+- assertVisible:
+    id: 'loginButton'
+- tapOn:
+    id: 'loginButton'
 

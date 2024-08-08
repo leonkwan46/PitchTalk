@@ -1,6 +1,5 @@
 import { TopHeading } from '@/src/components/shared'
 import LoggedInContainer from '@/src/components/shared/loggedIn/LoggedInContainer'
-import { View, Text, StyleSheet } from 'react-native'
 
 const SettingsTab = () => {
     

@@ -14,6 +14,10 @@ const getColor = (color: string) => {
             return 'black'
         case 'invisible':
             return 'transparent'
+        case 'red':
+            return '#D44343'
+        case 'green':
+            return '#39A139'
         default:
             return 'black'
     }

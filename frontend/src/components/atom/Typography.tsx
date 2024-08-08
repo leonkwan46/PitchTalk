@@ -25,13 +25,18 @@ const Typography: FC<TypographyProps> = ({ id='', children, extrasStyle, color='
         color: selectedColour,
         fontSize: selectedSize
     }
+
+    const newExtrasStyle = {
+        ...textStyle,
+        ...extrasStyle
+    }
     
     return (
         <View>
             {fontLoaded ? (
-                <Text id={id} style={extrasStyle ? extrasStyle : textStyle}>{children}</Text>
+                <Text id={id} style={extrasStyle ? newExtrasStyle : textStyle}>{children}</Text>
             ) : (
-                <Text id={id} style={extrasStyle ? extrasStyle : null}>{children}</Text>
+                <Text id={id} style={extrasStyle ? newExtrasStyle : null}>{children}</Text>
             )}
         </View>
     )

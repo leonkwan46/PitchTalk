@@ -46,6 +46,7 @@ const UploadDocument: FC<UploadDocumentProps> = ({
 
 const styles = StyleSheet.create({
   documentText: {
+    color: 'white',
     fontSize: 16,
   },
 })

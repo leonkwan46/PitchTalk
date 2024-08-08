@@ -2,12 +2,12 @@ import { combineContacts } from '@/src/helpers/generalHelpers'
 import { getContacts } from '@/src/redux/reducer/sessionSlice'
 import { getSessionStatus, getUserToken } from '@/src/redux/selectors'
 import { AppDispatch } from '@/src/redux/store'
-import { Box, Divider, VStack } from '@react-native-material/core'
+import { Box, VStack } from '@react-native-material/core'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { FC, useCallback, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { Loading } from '../shared'
+import { Loading, Divider } from '../shared'
 import Contact from './Contact'
 
 interface ContactData {
@@ -44,6 +44,7 @@ const ContactList: FC = () => {
                         {allContacts.map((contact) => (
                             <Box key={contact._id}>
                                 <Contact contactData={contact} />
+                                <Divider />
                             </Box>
                         ))}
                     </VStack>

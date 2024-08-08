@@ -11,6 +11,7 @@ const RootLayout = () => {
           <Stack.Screen name='extraDetailsScreen' options={{ headerShown: false }} />
           <Stack.Screen name='chat' options={{ headerShown: false }} />
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+          <Stack.Screen name='(reviewer)' options={{ headerShown: false }} />
         </Stack>
     </Provider>
   );

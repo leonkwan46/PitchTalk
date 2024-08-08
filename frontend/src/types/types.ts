@@ -34,7 +34,7 @@ export interface AuthUserState {
   userId: string
   email: string
   role: string
-  contacts?: ContactsState
+  contacts: ContactsState
   token: string
   name: string
   DoB: string
@@ -45,6 +45,7 @@ export interface AuthUserState {
   isInvitationVerified: boolean
   isDocUploaded: boolean
   isDocVerified: boolean
+  isDocRejected: boolean
 }
 
 export interface Message {

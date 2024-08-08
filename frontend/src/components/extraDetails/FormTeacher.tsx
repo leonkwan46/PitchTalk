@@ -12,20 +12,20 @@ import { router } from 'expo-router'
 import { DocumentPickerAsset } from 'expo-document-picker'
 
 const initialValues = {}
+const mockDocuments = {
+    name : 'test.pdf',
+    uri : 'https://www.google.com'
+}
 
 const FormTeacher: FC = () => {
     const dispatch: AppDispatch = useDispatch()
     const { userId } = getAuthUser()
-    const [selectedDBS, setSelectedDBS] = useState<DocumentPickerAsset>()
-    const [selectedID, setSelectedID] = useState<DocumentPickerAsset>()
-    const [selectedProfessionalCert, setSelectedProfessionalCert] = useState<DocumentPickerAsset>()
+    const [selectedDBS, setSelectedDBS] = useState<DocumentPickerAsset>(mockDocuments)
+    const [selectedID, setSelectedID] = useState<DocumentPickerAsset>(mockDocuments)
+    const [selectedProfessionalCert, setSelectedProfessionalCert] = useState<DocumentPickerAsset>(mockDocuments)
 
     const handleOnSubmit = async () => {
-        // Letting this pass for now
-        // const res = await dispatch(updateTeacherDocuments({ userId, selectedDBS, selectedID, selectedProfessionalCert } as UpdateTeacherDocumentsPayload))
-        // if (updateTeacherDocuments.fulfilled.match(res)) router.replace('(tabs)')
-
-        router.replace('(tabs)/messages')
+        await dispatch(updateTeacherDocuments({ userId, selectedDBS, selectedID, selectedProfessionalCert } as UpdateTeacherDocumentsPayload))
     }
         
     return (

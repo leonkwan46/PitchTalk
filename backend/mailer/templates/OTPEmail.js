@@ -35,26 +35,41 @@ const OTPEmailHTML = (otpCode) => {
                     text-align: center;
                     margin-bottom: 20px;
                 }
+                .header h2 {
+                    color: #333;
+                    font-size: 24px;
+                    margin: 0;
+                }
                 .otp-code {
                     text-align: center;
                     font-size: 24px;
-                    margin-bottom: 20px;
+                    color: #333;
+                    margin: 20px 0;
                 }
                 .footer {
                     text-align: center;
-                    margin-top: 20px;
-                    font-size: 12px;
+                    margin-top: 30px;
+                    font-size: 14px;
                     color: #666666;
+                }
+                .footer p {
+                    margin: 0;
+                }
+                .footer strong {
+                    color: #000;
                 }
             </style>
         </head>
         <body>
             <div class="container">
                 <div class="header">
-                    <h2>Invitation Code</h2>
+                    <h2>Your Invitation Code</h2>
                 </div>
                 <div class="otp-code">
                     <p>Your code is: <strong>${otpCode}</strong></p>
+                </div>
+                <div class="footer">
+                    <p>If you haven't registered an account yet, you can log in with this email and use the default password: <strong>123123</strong></p>
                 </div>
             </div>
         </body>
