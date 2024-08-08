@@ -14,16 +14,16 @@ import { loginUser, clearAuthStates, signUpUser } from '@/src/redux/reducer/auth
 
 // For testing
 // Parent
-const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123456', confirmPassword: '123123' }
+// const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Teacher
-// const initialValues = { email: 'teacher9@gmail.com', password: '123123', confirmPassword: '123123' }
+// const initialValues = { email: 'teacher1@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Student
 // const initialValues = { email: 'student@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Reviewer
-// const initialValues = { email: 'reviewer@gmail.com', password: '123123', confirmPassword: '123123' }
+const initialValues = { email: 'reviewer@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Default
 // const initialValues = { email: '', password: '', confirmPassword: '' }
@@ -51,15 +51,15 @@ const FormLoginSignUp: FC = () => {
             dispatch(loginUser(payload)).then((res) => {
                 if (loginUser.fulfilled.match(res)) {
                     const { token, user } = res.payload as ResponsePayload
-
                     const { role, isInvitationVerified, isDocVerified, isGeneralFormComplete } = user
                     if ((role === 'parent' && (!isInvitationVerified || !isGeneralFormComplete))
                         || (role === 'teacher' && (!isDocVerified || !isGeneralFormComplete))) {
                         router.replace('extraDetailsScreen')
                     } else if (role === 'reviewer') {
                         dispatch(setUser({ user, token }))
+                        dispatch(clearAuthStates())
                         router.replace('(reviewer)')
-                    } else {
+                    } else if (role !== 'reviewer') {
                         dispatch(setUser({ user, token }))
                         dispatch(clearAuthStates())
                         router.replace('(tabs)')

@@ -11,7 +11,7 @@ interface ApplicationProps {
 }
 
 const Application: FC<ApplicationProps> = (props) => {
-  const { _id, teacher, isPending } = props.applicationData
+  const { teacher, isPending } = props.applicationData
   const { name } = teacher
   const [isPopoverVisible, setIsPopoverVisible] = useState(false)
 

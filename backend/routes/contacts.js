@@ -17,19 +17,17 @@ router.post('/send_invitation', authHandler, async (req, res, next) => {
         if (recipient) recipient = { user: recipient }
 
         // If user does not exist, create user
-        if (!recipient) {
-            recipient = await authHelper.createAccount(email, '123123', 'parent')
+        if (!recipient) recipient = await authHelper.createAccount(email, '123123', 'parent')
 
-            const isUpdatedParent = await Parent.updateMany({ _id: recipient.user._id }, { $push: { teachers: teacherID } })
-            if (!isUpdatedParent) throw new Error("Failed to update parent's teacher list")
-
-            const isUpdatedTeacher = await Teacher.updateMany({ _id: teacherID }, { $push: { parents: recipient.user._id } })
-            if (!isUpdatedTeacher) throw new Error("Failed to update teacher's parent list")
-        }
-
+        const isUpdatedParent = await Parent.updateMany({ _id: recipient.user._id }, { $push: { teachers: teacherID } })
+        if (!isUpdatedParent) throw new Error("Failed to update parent's teacher list")       
         // Generate OTP and send to user
         const otpCode = await OTPHelper.generateOTP(recipient.user.hashPassword)
         await OTPHelper.sendOTPByEmail(email, otpCode)
+            
+        const isUpdatedTeacher = await Teacher.updateMany({ _id: teacherID }, { $push: { parents: recipient.user._id } })
+        if (!isUpdatedTeacher) throw new Error("Failed to update teacher's parent list")
+
         return res.status(200).json({ message: "Success" })
     } catch (err) {
         next(err)

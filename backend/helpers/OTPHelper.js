@@ -1,6 +1,6 @@
 import { totp } from "otplib"
 import mailerHelper from "./mailerHelper.js"
-import OTPEmail from "../mailer/templates/OTPEmail.js"
+import InvitationCodeEmail from "../mailer/templates/InvitationCodeEmail.js"
 import dotenv from 'dotenv'
 import { Parent } from "../db/modals/index.js"
 
@@ -28,7 +28,7 @@ OTPHelper.sendOTPByEmail = async (email, code) => {
     const isUpdated = await Parent.findOneAndUpdate({ email: email }, { isInvited: true })
     if (!isUpdated) throw new Error("Failed to update user")
 
-    const details = OTPEmail(code)
+    const details = InvitationCodeEmail(code)
     await mailerHelper.sendEmail({ email, details })
 }
 

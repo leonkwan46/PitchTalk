@@ -1,21 +1,21 @@
-const OTPEmail = (otpCode) => {
+const InvitationCodeEmail = (invitationCode) => {
     return {
-        subject: 'Your Invitation Code',
-        text: `Your Invitation Code is ${otpCode}`,
-        html: OTPEmailHTML(otpCode)
+        subject: 'You Have Been Invited to PitchTalk',
+        text: `You have been invited to PitchTalk. Your invitation code is ${invitationCode}. If you haven't registered an account yet, you can use the default password: 123123.`,
+        html: InvitationCodeEmailHTML(invitationCode)
     }
 }
-export default OTPEmail
+export default InvitationCodeEmail
 
 // Email Template
-const OTPEmailHTML = (otpCode) => {
+const InvitationCodeEmailHTML = (invitationCode) => {
     return `
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Invitation Code</title>
+            <title>Invitation to PitchTalk</title>
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -40,9 +40,9 @@ const OTPEmailHTML = (otpCode) => {
                     font-size: 24px;
                     margin: 0;
                 }
-                .otp-code {
+                .invitation-code {
                     text-align: center;
-                    font-size: 24px;
+                    font-size: 18px;
                     color: #333;
                     margin: 20px 0;
                 }
@@ -63,13 +63,13 @@ const OTPEmailHTML = (otpCode) => {
         <body>
             <div class="container">
                 <div class="header">
-                    <h2>Your Invitation Code</h2>
+                    <h2>Welcome to PitchTalk!</h2>
                 </div>
-                <div class="otp-code">
-                    <p>Your code is: <strong>${otpCode}</strong></p>
+                <div class="invitation-code">
+                    <p>You have been invited to PitchTalk. Your invitation code is: <strong>${invitationCode}</strong></p>
                 </div>
                 <div class="footer">
-                    <p>If you haven't registered an account yet, you can log in with this email and use the default password: <strong>123123</strong></p>
+                    <p>If you haven't registered an account yet, you can use the default password: <strong>123123</strong> to log in and complete your registration.</p>
                 </div>
             </div>
         </body>
