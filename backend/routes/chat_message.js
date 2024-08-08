@@ -42,7 +42,6 @@ router.get('/get_rooms', authHandler, async (req, res, next) => {
         const rooms = await Room.find({ members: _id })
             .populate('members', 'name email') 
 
-        console.log(rooms)
         return res.status(200).json(rooms)
     } catch (err) {
         next(err)
