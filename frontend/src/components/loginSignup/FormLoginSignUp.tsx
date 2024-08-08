@@ -14,10 +14,10 @@ import { loginUser, clearAuthStates, signUpUser } from '@/src/redux/reducer/auth
 
 // For testing
 // Parent
-// const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123123', confirmPassword: '123123' }
+const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123456', confirmPassword: '123123' }
 
 // Teacher
-const initialValues = { email: 'teacher9@gmail.com', password: '123123', confirmPassword: '123123' }
+// const initialValues = { email: 'teacher9@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Student
 // const initialValues = { email: 'student@gmail.com', password: '123123', confirmPassword: '123123' }

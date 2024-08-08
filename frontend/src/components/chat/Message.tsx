@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Typography } from '../atom'
-import { useTypedSelector } from '@/src/hooks/useTypedSelector'
 import { Image } from 'react-native-elements'
+import { getLoggedInUser } from '@/src/redux/selectors'
 
 const teacherPic = require('../../assets/images/teacher.jpg')
 const parentPic = require('../../assets/images/parent.jpg')
@@ -22,29 +22,13 @@ const Message: FC<MessageProps> = ({
     messageData
 }) => {
     const { message, senderId, senderRole } = messageData.item
-    const { userId } = useTypedSelector(state => state.session.user)
-
+    const { userId } = getLoggedInUser()
     const isSender = userId === senderId
-
-    const getProfilePic = (role: string) => {
-        switch (role) {
-            case 'teacher':
-                return teacherPic
-            case 'parent':
-                return parentPic
-            case 'student':
-                return defaultPic
-            default:
-                return defaultPic
-        }
-    }
-
-    const profilePic = getProfilePic(senderRole)
 
     return (
         <View style={ isSender ? styles.senderContainer : styles.receiverContainer }>
-            {!isSender && profilePic && (
-                <Image source={profilePic} style={styles.profilePic} />
+            {!isSender && (
+                <Image source={senderRole === 'teacher' ? teacherPic : senderRole === 'parent' ? parentPic : defaultPic} style={styles.profilePic} />
             )}
             <Typography extrasStyle={isSender ? styles.senderText : styles.receiverText} color='primary' size='lg'>{ message }</Typography>
         </View>

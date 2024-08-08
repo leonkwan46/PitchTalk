@@ -7,7 +7,7 @@ import MessageInput from './MessageInput'
 
 const ContainerChatMessage: FC = () => {
     const { userId, role } = useTypedSelector(state => state.session.user)
-    const { roomId, name, members, messages: chatHistory } = useTypedSelector(state => state.session.currentChatRoom)
+    const { roomId, messages: chatHistory } = useTypedSelector(state => state.session.currentChatRoom)
 
     const [oldMessages, setOldMessages] = useState<MessageData[]>([])
     const [message, setMessage] = useState<string>('')
