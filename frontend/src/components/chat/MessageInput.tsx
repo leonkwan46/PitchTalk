@@ -37,12 +37,15 @@ const MessageInput: FC<MessageInputProps> = ({
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#555',
+        backgroundColor: '#444',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 10,
+        paddingVertical: 10,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
     },
     textInputContainer: {
         width: '80%',

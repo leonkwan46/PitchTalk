@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     },
     messageList: {
         flex: 1,
-        padding: 10,
-        paddingVertical: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
     },
     chatHistoryList: {
         flexGrow: 0,

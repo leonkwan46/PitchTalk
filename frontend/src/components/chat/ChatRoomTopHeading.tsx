@@ -33,8 +33,11 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
         backgroundColor: '#444',
+        paddingTop: 20,
+        paddingBottom: 10,
     },
     icon: {
         padding: 20
