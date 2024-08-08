@@ -25,7 +25,6 @@ userDataHelper.fetchTeacherUserData = async (user) => {
     return {
         isDocUploaded: user.isDocUploaded,
         isDocVerified: user.isDocVerified,
-        isDocRejected: user.isDocRejected,
         contacts: {
             parents,
             students,

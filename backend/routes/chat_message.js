@@ -29,7 +29,6 @@ router.post('/create_chat_room', authHandler, async (req, res, next) => {
             name: `${memberData.student.name}'s Music Room`,
             members
         })
-
         await newRoom.save()
         return res.status(200).json(newRoom)
     } catch (err) {
@@ -38,12 +37,17 @@ router.post('/create_chat_room', authHandler, async (req, res, next) => {
 })
 
 router.get('/get_rooms', authHandler, async (req, res, next) => {
+    const { _id } = req.user
     try {
-        const rooms = await Room.find()
+        const rooms = await Room.find({ members: _id })
+            .populate('members', 'name email') 
+
+        console.log(rooms)
         return res.status(200).json(rooms)
     } catch (err) {
         next(err)
     }
 })
+
 
 export default router

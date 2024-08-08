@@ -31,6 +31,7 @@ authHelper.returnUserDataToClient = async (user = '', isValid = false) => {
         userId: user._id,
         email: user.email,
         role: user.role,
+        chatRoom: user.chatRoom,
         isRegistered: user.isRegistered,
         isGeneralFormComplete: user.isGeneralFormComplete,
     }

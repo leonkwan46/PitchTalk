@@ -5,20 +5,15 @@ const roomSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    members: {
-        type: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User",
-            },
-        ],
-        ref: "User",
-        required: true,
-    },
-    messages: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "Message",
-    },
+    members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }],
+    messages: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Message'
+    }],
     createAt: {
         type: Number,
         default: Date.now,

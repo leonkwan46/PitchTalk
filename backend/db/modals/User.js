@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
       enum: ["student", "parent", "teacher",  "reviewer"],
       required: true,
     },
+    chatRooms: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Room",
+      default: [],
+    },
 
     name: {
       type: String,
