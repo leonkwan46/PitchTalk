@@ -1,4 +1,3 @@
-import { getUserStatus } from '@/src/redux/selectors'
 import React, { FC, ReactNode } from 'react'
 import { StyleSheet, ImageBackground, ScrollView, SafeAreaView} from 'react-native'
 import StatusContainer from '../shared/feedback/StatusContainer'

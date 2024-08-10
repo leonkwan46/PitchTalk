@@ -1,7 +1,7 @@
 import { getLoggedInUser, getUserContacts } from '@/src/redux/selectors'
 import { AppDispatch } from '@/src/redux/store'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { Box, Divider, VStack } from '@react-native-material/core'
+import { Box, VStack } from '@react-native-material/core'
 import { Picker } from '@react-native-picker/picker'
 import { useNavigation } from '@react-navigation/native'
 import dayjs from 'dayjs'

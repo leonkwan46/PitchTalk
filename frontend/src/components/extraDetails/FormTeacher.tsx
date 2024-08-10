@@ -8,7 +8,6 @@ import { updateTeacherDocuments, UpdateTeacherDocumentsPayload } from '../../red
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/src/redux/store'
 import { Button, Typography } from '../atom'
-import { router } from 'expo-router'
 import { DocumentPickerAsset } from 'expo-document-picker'
 
 const initialValues = {}
