@@ -30,9 +30,9 @@ Private tutors often provide their personal contact information to students, rai
 
 ## Getting Started
 - [Frontend](https://github.com/leonkwan46/PitchTalk/blob/main/frontend/README.md)
-  - [macOS Users](README-macOS.md)
-  - [Windows Users](README-Windows.md)
-  - [Linux Users](README-Linux.md)
+  - [macOS Users](https://github.com/leonkwan46/PitchTalk/blob/main/frontend/README-macOS.md)
+  - [Windows Users](https://github.com/leonkwan46/PitchTalk/blob/main/frontend/README-Windows.md)
+  - [Linux Users](https://github.com/leonkwan46/PitchTalk/blob/main/frontend/README-Linux.md)
 - [Backend](https://github.com/leonkwan46/PitchTalk/blob/main/backend/README.md)
 
 ## Contributing
