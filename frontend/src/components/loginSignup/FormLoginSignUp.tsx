@@ -14,7 +14,7 @@ import { loginUser, clearAuthStates, signUpUser } from '@/src/redux/reducer/auth
 
 // For testing
 // Parent
-// const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123123', confirmPassword: '123123' }
+const initialValues = { email: 'lk370.chatapp@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Teacher
 // const initialValues = { email: 'teacher1@gmail.com', password: '123123', confirmPassword: '123123' }
@@ -23,7 +23,7 @@ import { loginUser, clearAuthStates, signUpUser } from '@/src/redux/reducer/auth
 // const initialValues = { email: 'student@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Reviewer
-const initialValues = { email: 'reviewer@gmail.com', password: '123123', confirmPassword: '123123' }
+// const initialValues = { email: 'reviewer@gmail.com', password: '123123', confirmPassword: '123123' }
 
 // Default
 // const initialValues = { email: '', password: '', confirmPassword: '' }

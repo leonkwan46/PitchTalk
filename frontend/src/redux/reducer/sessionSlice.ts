@@ -1,8 +1,8 @@
 import { getErrorMessage } from '@/src/helpers/errorHandlingHelper'
-import { ChatRoomState, CurrentChatRoomState, SessionState } from '@/src/types/types'
+import { API_URL } from '@/src/helpers/generalHelpers'
+import { ChatRoomState, SessionState } from '@/src/types/types'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { isLoading } from 'expo-font'
 
 interface CodeData {
     email: string
@@ -82,7 +82,7 @@ export const sendInvitationCode = createAsyncThunk(
   async (codeData: CodeData, { rejectWithValue }) => {
     const { email, token } = codeData
     try {
-      const response = await axios.post('http://localhost:3000/contacts/send_invitation', { email }, {
+      const response = await axios.post(`${API_URL}contacts/send_invitation`, { email }, {
         headers: {
           'authorization': `Bearer ${token}`
         }
@@ -99,7 +99,7 @@ export const createStudentAccount = createAsyncThunk(
   async (studentData: StudentSignUpData, {rejectWithValue}) => {
     const { parentToken } = studentData
     try {
-      const response = await axios.post('http://localhost:3000/contacts/create_student_account', studentData, {
+      const response = await axios.post(`${API_URL}contacts/create_student_account`, studentData, {
           headers: {
               'authorization': `Bearer ${parentToken}`
           }
@@ -116,7 +116,7 @@ export const getChatRooms = createAsyncThunk(
   async (chatRoomData: ChatRoomData, {rejectWithValue}) => {
     const { token } = chatRoomData
     try {
-      const response = await axios.get('http://localhost:3000/chat_message/get_rooms', {
+      const response = await axios.get(`${API_URL}chat_message/get_rooms`, {
         headers: {
             'authorization': `Bearer ${token}`
         }
@@ -133,7 +133,7 @@ export const createChatRoom = createAsyncThunk(
   async (chatRoomData: ChatRoomData, { rejectWithValue }) => {
       const { token } = chatRoomData
       try {
-        const response = await axios.post('http://localhost:3000/chat_message/create_chat_room', chatRoomData, {
+        const response = await axios.post(`${API_URL}chat_message/create_chat_room`, chatRoomData, {
             headers: {
                 'authorization': `Bearer ${token}`
             }
@@ -150,7 +150,7 @@ export const getContacts = createAsyncThunk(
   async (contactData: ContactData, { rejectWithValue }) => {
     const { token } = contactData
     try {
-        const response = await axios.get('http://localhost:3000/contacts/get_contacts', {
+        const response = await axios.get(`${API_URL}contacts/get_contacts`, {
             headers: {
                 'authorization': `Bearer ${token}`
             }
@@ -167,7 +167,7 @@ export const fetchChildren = createAsyncThunk(
   async (fetchChildrenData: fetchChildrenData, { rejectWithValue }) => {
     const { token } = fetchChildrenData
     try {
-        const response = await axios.post('http://localhost:3000/contacts/fetch_children', fetchChildrenData, {
+        const response = await axios.post(`${API_URL}contacts/fetch_children`, fetchChildrenData, {
             headers: {
                 'authorization': `Bearer ${token}`
             }
@@ -184,7 +184,7 @@ export const getApplications = createAsyncThunk(
   async (applicationData: ApplicationData, { rejectWithValue }) => {
     const { token } = applicationData
     try {
-        const response = await axios.get('http://localhost:3000/reviewer/get_applications', {
+        const response = await axios.get(`${API_URL}reviewer/get_applications`, {
             headers: {
                 'authorization': `Bearer ${token}`
             }
@@ -201,7 +201,7 @@ export const updateApplication = createAsyncThunk(
   async (updateApplicationData: UpdateApplicationData, { rejectWithValue }) => {
     const { token } = updateApplicationData
     try {
-        const response = await axios.post('http://localhost:3000/reviewer/update_application', updateApplicationData, {
+        const response = await axios.post(`${API_URL}reviewer/update_application`, updateApplicationData, {
             headers: {
                 'authorization': `Bearer ${token}`
             }

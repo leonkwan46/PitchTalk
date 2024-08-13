@@ -1,5 +1,7 @@
 import { io, Socket } from 'socket.io-client'
 import { Message } from '../types/types'
+import { Platform } from 'react-native'
+import { API_URL } from './generalHelpers'
 
 export interface MessageData {
   id: string
@@ -9,7 +11,7 @@ export interface MessageData {
   senderRole: string
 }
 
-const socket: Socket = io('http://localhost:3000')
+const socket: Socket = io(API_URL)
 
 const getSocketId = (): string => {
   if (!socket.id) throw new Error('Socket ID is undefined')

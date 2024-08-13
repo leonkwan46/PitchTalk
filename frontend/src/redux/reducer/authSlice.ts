@@ -1,4 +1,5 @@
 import { getErrorMessage } from '@/src/helpers/errorHandlingHelper'
+import { API_URL } from '@/src/helpers/generalHelpers'
 import { AuthState, AuthUserState } from '@/src/types/types'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
@@ -94,7 +95,7 @@ export const signUpUser = createAsyncThunk<
         'auth/signUpUser',
         async (userData, { rejectWithValue }) => {
             try {
-                const response = await axios.post('http://localhost:3000/signup', userData)
+                const response = await axios.post(`${API_URL}signup`, userData)
                 return response.data
             } catch (error: any) {
                 return rejectWithValue(getErrorMessage(error))
@@ -110,10 +111,10 @@ export const loginUser = createAsyncThunk<
         async (userData, { rejectWithValue }) => {
             try {
                 if (userData.email.includes('reviewer')) {
-                    const response = await axios.post('http://localhost:3000/login/reviewer', userData)
+                    const response = await axios.post(`${API_URL}login/reviewer`, userData)
                     return response.data
                 } else {
-                    const response = await axios.post('http://localhost:3000/login', userData)
+                    const response = await axios.post(`${API_URL}login`, userData)
                     return response.data
                 }
             } catch (error: any) {
@@ -126,7 +127,7 @@ export const updateUser = createAsyncThunk(
     'auth/updateUser',
     async (userData: UpdateUserPayload, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:3000/signup/extra_details', userData)
+            const response = await axios.post(`${API_URL}signup/extra_details`, userData)
             return response.data
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
@@ -140,7 +141,7 @@ export const authInvitationCode = createAsyncThunk(
         const { token, invitationCode } = codeData
         try {
             const response = await axios.post(
-                'http://localhost:3000/signup/extra_details/auth_invitation',
+                `${API_URL}signup/extra_details/auth_invitation`,
                 { invitationCode },
                 {
                     headers: {
@@ -159,7 +160,7 @@ export const updateTeacherDocuments = createAsyncThunk(
     'auth/updateTeacherDocuments',
     async (teacherData: UpdateTeacherDocumentsPayload, { rejectWithValue }) => {
         try {
-            const response = await axios.post('http://localhost:3000/signup/extra_details/upload', teacherData)
+            const response = await axios.post(`${API_URL}signup/extra_details/upload`, teacherData)
             return response.data
         } catch (error) {
             return rejectWithValue(getErrorMessage(error))
