@@ -26,7 +26,7 @@ brew install nvm
 &nbsp;
 ### Installing Xcode
 For iOS development, you need Xcode. Install it via the Mac App Store:
-1. Open the Mac App Store.
+1. Open the [Mac App Store](https://apps.apple.com/us/app/xcode/id497799835?mt=12).
 2. Search for "Xcode".
 3. Click "Get" to download and install Xcode.
 
@@ -116,3 +116,13 @@ To run end-to-end tests using Maestro, use the following command:
 npx maestro test 
 ```
 
+&nbsp;
+
+## Troubleshooting
+If you encounter macOS compatibility issues with iOS development, navigate to the ios folder and run:
+
+```bash
+cd ios
+pod install
+```
+This command installs the necessary CocoaPods dependencies for iOS development.
