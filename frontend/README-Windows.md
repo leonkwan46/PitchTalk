@@ -6,9 +6,7 @@
 - **npm** (comes with Node.js)
 - **Expo** CLI (for development and testing)
 - **Android Studio** (for Android development)
-
 &nbsp;
-
 ### Installing Node.js and npm with Homebrew
 - Download the Node.js installer from the [official website](https://nodejs.org/en).
 - Run the installer and follow the prompts to install Node.js and npm.
