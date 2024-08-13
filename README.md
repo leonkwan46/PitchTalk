@@ -31,3 +31,15 @@ Private tutors often provide their personal contact information to students, rai
 ## Getting Started
 - [Frontend](https://github.com/leonkwan46/PitchTalk/blob/main/frontend/README.md)
 - [Backend](https://github.com/leonkwan46/PitchTalk/blob/main/backend/README.md)
+
+## Contributing
+If you would like to contribute to PitchTalk, please follow these guidelines:
+
+Fork the repository.
+Create a new branch for your changes.
+Commit your changes and push them to your fork.
+Submit a pull request describing your changes.
+
+
+## Contact
+For any questions or issues, please open an issue on the GitHub repository or contact me directly at lk370.chatapp@gmail.com.
