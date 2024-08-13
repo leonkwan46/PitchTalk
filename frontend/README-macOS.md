@@ -1,6 +1,5 @@
 
 # PitchTalk - macOS Setup
-&nbsp;
 ## Prerequisites
 
 - **Homebrew**: A package manager for macOS.
@@ -97,3 +96,23 @@ For Android:
 ```bash
 npx react-native run-android
 ```
+&nbsp;
+
+
+## Running Tests
+
+### Unit Tests
+
+To run unit tests, use the following command:
+
+```bash
+npm test
+```
+
+### End-to-End (e2e) Tests
+To run end-to-end tests using Maestro, use the following command:
+
+```bash
+npx maestro test 
+```
+
