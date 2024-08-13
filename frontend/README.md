@@ -2,6 +2,12 @@
 
 ## Getting Started
 
+### Clone the Repository
+
+```bash
+git clone https://github.com/leonkwan46/PitchTalk.git
+cd PitchTalk
+```
 To get started with PitchTalk, please follow the appropriate instructions for your operating system:
 
 - [macOS Users](README-macOS.md)
