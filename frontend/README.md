@@ -13,4 +13,3 @@ Please follow the appropriate instructions for your operating system:
 
 - [macOS Users](README-macOS.md)
 - [Windows Users](README-Windows.md)
-- [Linux Users](README-Linux.md)
