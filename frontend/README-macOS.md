@@ -24,6 +24,7 @@ brew install node
 ```bash
 brew install nvm
 ```
+&nbsp;
 ### Installing Xcode
 For iOS development, you need Xcode. Install it via the Mac App Store:
 1. Open the Mac App Store.
@@ -34,7 +35,7 @@ Alternatively, install Xcode via Homebrew:
 ```bash
 brew install --cask xcode
 ```
-
+&nbsp;
 ### Installing Android Studio
 
 1. Go to the [Android Studio download page](https://developer.android.com/studio).
