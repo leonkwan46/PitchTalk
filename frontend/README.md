@@ -2,53 +2,27 @@
 
 ## Overview
 
-PitchTalk is a React Native application designed to build communication between teachers, parents, and students through a chat system.
+PitchTalk is a React Native application designed to enhance communication between teachers, parents, and students through a comprehensive chat system.
 
 ## Features
-- 
 
-## Prerequisites
-
-- Node.js (version 18.x or later)
-- npm (comes with Node.js)
-- Expo CLI (for development and testing)
-- nvm (optional)
+- **Real-time Messaging**: Facilitates instant communication between teachers, parents, and students.
+- **Profile Management**: Allows users to manage their profiles and display role-based profile pictures.
+- **Role-Based Access**: Restricts certain functionalities to specific user roles (e.g., only teachers can create rooms).
+- **Invitation System**: Enables sending invitation codes via email for account creation.
 
 ## Getting Started
 
-1. **Clone the repository:**
+To get started with PitchTalk, please follow the appropriate instructions for your operating system:
 
-    ```bash
-    git clone https://github.com/leonkwan46/PitchTalk.git
-    cd PitchTalk
-    ```
+- [macOS Users](README-macOS.md)
+- [Windows Users](README-Windows.md)
+- [Linux Users](README-Linux.md)
 
-2. **Install dependencies:**
+**Note:** If you do not have an Expo account or prefer not to use Expo, you can use `npx react-native` commands to run the app:
 
-    ```bash
-    ## nvm use optional, if you have nvm installed)
-    npm install
-    ```
-
-3. **Start the development server:**
-
-    ```bash
-    npm start
-    ```
-
-4. **Run the app on an iOS simulator or Android emulator:**
-
-    For iOS:
-
-    ```bash
-    npm run ios
-    ```
-
-    For Android:
-
-    ```bash
-    npm run android
-    ```
+- For iOS: `npx react-native run-ios`
+- For Android: `npx react-native run-android`
 
 ## Running Tests
 
