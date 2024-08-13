@@ -19,28 +19,6 @@ To get started with PitchTalk, please follow the appropriate instructions for yo
 - [Windows Users](README-Windows.md)
 - [Linux Users](README-Linux.md)
 
-**Note:** If you do not have an Expo account or prefer not to use Expo, you can use `npx react-native` commands to run the app:
-
-- For iOS: `npx react-native run-ios`
-- For Android: `npx react-native run-android`
-
-## Running Tests
-
-### Unit Tests
-
-To run unit tests, use the following command:
-
-```bash
-npm test
-```
-
-### End-to-End (e2e) Tests
-To run end-to-end tests using Maestro, use the following command:
-
-```bash
-npx maestro test 
-```
-
 ### Contributing
 If you would like to contribute to PitchTalk, please follow these guidelines:
 
