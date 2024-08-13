@@ -50,4 +50,4 @@ If you would like to contribute to PitchTalk, please follow these guidelines:
 4. Submit a pull request describing your changes.
 
 ### Contact
-For any questions or issues, please open an issue on the GitHub repository or contact me directly at email@example.com.
+For any questions or issues, please open an issue on the GitHub repository or contact me directly at lk370.chatapp@gmail.com.
