@@ -8,13 +8,14 @@
 - **Expo** CLI (for development and testing)
 - **nvm** (optional, for managing Node.js versions)
 - **Xcode** (for iOS development)
+- **Android Studio** (for Android development)
+
 &nbsp;
 ### Installing Homebrew
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-
 ### Installing Node.js and npm with Homebrew
 ```bash
 brew install node
@@ -23,6 +24,11 @@ brew install node
 ```bash
 brew install nvm
 ```
+### Installing Expo CLI
+```bash
+npm install -g expo-cli
+```
+
 &nbsp;
 ### Installing Xcode
 For iOS development, you need Xcode. Install it via the Mac App Store:
