@@ -56,12 +56,6 @@ brew install --cask xcode
 &nbsp;
 
 ## Getting Started
-### Clone the repository:
-
-```bash
-git clone https://github.com/leonkwan46/PitchTalk.git
-cd PitchTalk
-```
 ### Install dependencies:
 
 ```bash
