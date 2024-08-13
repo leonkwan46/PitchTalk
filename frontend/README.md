@@ -40,3 +40,14 @@ To run end-to-end tests using Maestro, use the following command:
 ```bash
 npx maestro test 
 ```
+
+### Contributing
+If you would like to contribute to PitchTalk, please follow these guidelines:
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Commit your changes and push them to your fork.
+4. Submit a pull request describing your changes.
+
+### Contact
+For any questions or issues, please open an issue on the GitHub repository or contact me directly at email@example.com.
