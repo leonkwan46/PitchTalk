@@ -119,7 +119,12 @@ npx maestro test
 &nbsp;
 
 ## Troubleshooting
-If you encounter macOS compatibility issues with iOS development, navigate to the ios folder and run:
+If you encounter macOS compatibility issues with iOS development, please ensure you have CocoaPods installed. You can install CocoaPods using Homebrew with the following command:
+
+```bash
+brew install cocoapods
+```
+After installing CocoaPods, navigate to the ios folder and run:
 
 ```bash
 cd ios
