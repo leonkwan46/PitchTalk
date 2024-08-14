@@ -1,6 +1,6 @@
 # PitchTalk
 
-PitchTalk is a mobile application designed to facilitate safe and secure communication between private tutors, students, and parents/guardians. The app addresses critical issues related to trust and safety in education, especially in the context of private tutoring and online learning.
+**PitchTalk** is my MSc Dissertation Project, it is a mobile application designed to facilitate safe and secure communication between private tutors, students, and parents/guardians. The app addresses critical issues related to trust and safety in education, especially in the context of private tutoring and online learning.
 
 ## Problem Statement
 
