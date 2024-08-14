@@ -16,8 +16,8 @@ import { Button, TextInput, Typography } from '../atom'
 const validationSchema = GeneralFormSchema
 
 // For testing
-const initialValues = { name: 'Parent 1', DoB: '04-04-2024', gender: 'Female' }
-// const initialValues = { name: '', DoB: '', gender: '' }
+// const initialValues = { name: 'Parent', DoB: '04-04-2000', gender: 'Male' }
+const initialValues = { name: '', DoB: '', gender: '' }
 
 interface FormValues {
     name: string;

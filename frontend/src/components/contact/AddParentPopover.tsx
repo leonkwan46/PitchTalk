@@ -11,8 +11,12 @@ import { AppDispatch } from '@/src/redux/store'
 import { Button, TextInput, Typography } from '../atom'
 import StatusContainer from '../shared/feedback/StatusContainer'
 
-const testValues = {
-    email: 'lk370.chatapp@gmail.com',
+const initialValues = {
+    // Test value
+    // email: 'lk370.chatapp@gmail.com',
+
+    // Default value
+    email: '',
 }
 
 interface FormValues {
@@ -55,7 +59,7 @@ const AddParentPopover: FC<AddParentPopoverProps> = (props) => {
                             <Typography color='primary' size='subtitle'>Send Invitation Code</Typography>
                             <View style={styles.popoverContent}>
                                 <Formik
-                                    initialValues={testValues}
+                                    initialValues={initialValues}
                                     onSubmit={handleSendInvitationCode}
                                     validationSchema={SendEmailSchema}
                                 >

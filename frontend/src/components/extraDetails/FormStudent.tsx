@@ -14,8 +14,8 @@ import { createStudentAccount } from '../../redux/reducer/sessionSlice'
 import { Button, TextInput, Typography } from '../atom'
 
 // For testing
-const initialValues = { email: 'student@gmail.com', password: '123123', confirmPassword: '123123', name: 'Student 1', DoB: '04-04-2024', gender: 'Male', teacher: '', instrument: 'Piano'}
-// const initialValues = { name: '', DoB: '', gender: '' }
+// const initialValues = { email: 'student@gmail.com', password: '123123', confirmPassword: '123123', name: 'Student 1', DoB: '04-04-2024', gender: 'Male', teacher: '', instrument: 'Piano'}
+const initialValues = { email: '', password: '', confirmPassword: '', name: '', DoB: '', gender: '' , teacher: '', instrument: ''}
 
 const validationSchema = StudentFormSchema
 
