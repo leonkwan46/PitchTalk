@@ -1,4 +1,5 @@
 import express from "express"
+import moment from 'moment'
 import authHandler from "../handlers/authHandler.js"
 import OTPHelper from "../helpers/OTPHelper.js"
 import { Parent, Student, Teacher, User } from "../db/modals/index.js"
@@ -39,11 +40,15 @@ router.post('/create_student_account', authHandler, async (req, res, next) => {
         const { _id: parentID } = req.user
         const { email, password, name, DoB, gender, teacher, instrument } = req.body
 
+        // Convert DoB
+        const parsedDoB = moment(DoB, 'DD-MM-YYYY', true).toDate()
+        if (!moment(parsedDoB).isValid()) throw new Error("Invalid date format")
+
         // Create student account
         const student = await authHelper.createAccount(email, password, 'student')
         // Update student details
         await Student.updateMany({ _id: student.user._id }, {
-            $set: { name: name, DoB: DoB, gender: gender, isGeneralFormComplete: true, parent: parentID},
+            $set: { name: name, DoB: parsedDoB, gender: gender, isGeneralFormComplete: true, parent: parentID},
             $push: { teachers: teacher.split(',')[1], instrument: instrument }
         })
         // Update parent details

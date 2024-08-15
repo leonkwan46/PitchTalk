@@ -1,4 +1,5 @@
 import express from "express"
+import moment from 'moment'
 import { User, Document, Parent, Application } from "../db/modals/index.js"
 import authHelper from "../helpers/authHelper.js"
 import authHandler from "../handlers/authHandler.js"
@@ -30,13 +31,17 @@ router.post('/extra_details', async (req, res, next) => {
     try {
         const { name, DoB, gender, userId, isGeneralFormComplete } = req.body
 
+        // Convert DoB
+        const parsedDoB = moment(DoB, 'DD-MM-YYYY', true).toDate()
+        if (!moment(parsedDoB).isValid()) throw new Error("Invalid date format")
+
         // Find user
         let user = await User.findById(userId)
         if (!user) throw new Error("User not found")
 
         // Update user
         user.name = name
-        user.DoB = DoB
+        user.DoB = parsedDoB
         user.gender = gender
         user.isGeneralFormComplete = isGeneralFormComplete
 
