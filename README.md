@@ -14,12 +14,12 @@ Private tutors often provide their personal contact information to students, rai
 
 - **Role-based UI and Functionality**: Dynamically renders components based on user roles.
 - **Real-time Messaging**: Provides instant communication for users.
-- **Chat History**: Archives and retrieves past chat messages.
+- **Chat History**: Archives and retrieves chat history messages.
 - **Login and Registration**: Secure user authentication and registration.
-- **Mailing and OTP Verification**: Sends OTP codes for parent verification.
+- **Mailing and OTP Verification**: Sends OTP codes via email for parent verification.
 - **Create Accounts for Children**: Allows parents to manage child accounts.
-- **Create Chat Rooms**: Facilitates chat room creation and management.
-- **Approve/Decline Teacher Applications**: Manages tutor application approvals.
+- **Create Chat Rooms**: Allows teachers to create chat rooms.
+- **Approve/Decline Teacher Applications**: Manages teachers' application approvals and sends a notification email to the teacher.
 
 ### Security Layers
 
