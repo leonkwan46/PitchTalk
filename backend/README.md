@@ -1,9 +1,5 @@
 # PitchTalk - Backend
 
-## Overview
-
-The PitchTalk backend is built with Node.js and Express.js to provide the server-side functionality for the PitchTalk application. It handles API requests, manages authentication, and interacts with the database to support the frontend features.
-
 ## Prerequisites
 
 - **Node.js (version 18.x or later)**
